@@ -1,7 +1,8 @@
 import "./assets/CSS/style.css";
-import Snake from "./class/Test";
+import Utils from "./class/Utils";
+import Game from "./class/Game";
+import Draw from "./class/Draw";
+import Snake from "./class/Snake";
 import Apple from "./assets/picture/apple.png";
 
-const sn = new Snake();
-
-console.log(sn);
+const game = new Game(Draw, Utils, Snake, Apple);
