@@ -1,7 +1,50 @@
+html,
+body {
+   margin: 0;
+   padding: 0;
+}
+
+body main {
+   display: flex;
+   flex-direction: column;
+
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+}
 .alertMessage {
-   background-color: aqua;
-   width: 200px;
+   background-color: rgb(57, 206, 114);
+   width: 400px;
    height: 200px;
+   position: relative;
+}
+
+.alertMessage > div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+.alertMessage > div > label {
+   font-size: 1.2rem;
+   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+      Geneva, Verdana, sans-serif;
+   padding: 0.5rem;
+}
+
+.alertMessage > button {
+   position: absolute;
+   bottom: 10px;
+   left: 50%;
+   right: 50%;
+   transform: translateX(-50%);
+}
+
+#name {
+   padding: 0.6rem;
+   width: 200px;
+   border-radius: 10px;
+   font-size: 1.2rem;
 }
 
 .alertMessageBut {

@@ -5,6 +5,7 @@ class Utils extends LocalStorage {
       super();
       this.scoreContainer = document.getElementById("score");
       this.speedContainer = document.getElementById("speed");
+      this.keyScore = "snakeScore";
    }
    /**
     *
@@ -34,7 +35,6 @@ class Utils extends LocalStorage {
             ${inputOrNot}
             <button class='${options.classForButton}'>${options.contentButton}</button>
        `;
-
       parent.appendChild(div);
    }
 
@@ -59,13 +59,11 @@ class Utils extends LocalStorage {
       this.speedContainer.textContent = speed;
    }
    /**
-    *
-    *
     * @param {string} nameOfPlayer
     * @memberof Utils
     */
    getPlayerOldScore(nameOfPlayer) {
-      const oldScore = this.getItem("snakeScore");
+      const oldScore = this.getItem(this.keyScore);
       if (oldScore) {
          const playerScore = oldScore.filter((score) => {
             return score.name === nameOfPlayer;
@@ -79,39 +77,43 @@ class Utils extends LocalStorage {
    }
 
    /*
-    *
     * @param {number} score
     * @param {string} nameOfPlayer
     * @memberof Utils
     */
    addNewPlayerScore(score, nameOfPlayer) {
       let total_score_of_players;
+      let total_score_without_scoreActualPlyer;
       const dataplayer = {
          name: nameOfPlayer,
          score: score,
       };
       // check if data exist
-      const scoreTotal = this.getItem("snakeScore");
+      const scoreTotal = this.getItem(this.keyScore);
       if (!scoreTotal) {
          total_score_of_players = [];
          total_score_of_players.push(dataplayer);
-         this.setItem("snakeScore", total_score_of_players);
+         this.setItem(this.keyScore, total_score_of_players);
          return;
       }
       const oldScoreOfPlayer = scoreTotal.find((scoreData) => {
          return scoreData.name === nameOfPlayer;
       });
-
+      // check if old score for this player
       if (oldScoreOfPlayer) {
-         if (oldScoreOfPlayer.score > score) {
+         if (oldScoreOfPlayer.score < score) {
             oldScoreOfPlayer.score = score;
+            total_score_without_scoreActualPlyer = scoreTotal.filter((scorePlayer) => {
+               return scorePlayer.name !== nameOfPlayer;
+            });
+            // add new score
+            total_score_without_scoreActualPlyer.push(oldScoreOfPlayer);
+            this.setItem(this.keyScore, total_score_without_scoreActualPlyer);
          }
       } else {
-         this.setItem("snakeScore", scoreTotal);
-         return;
+         scoreTotal.push(dataplayer);
+         this.setItem(this.keyScore, scoreTotal);
       }
-      scoreTotal.push(dataplayer);
-      this.setItem("snakeScore", scoreTotal);
    }
 }
 

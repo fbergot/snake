@@ -44,14 +44,10 @@ class Game extends Snake {
       // update
       this.displayScoreAndSpeed(this.actualSpeed, this.score);
       this.oldPlayerScore = this.getPlayerOldScore(this.playerName);
-      console.log("oldscore:", this.oldPlayerScore);
+      this.addNewPlayerScore(this.score, this.playerName);
    }
 
-   end() {
-      if (this.oldPlayerScore && this.score > this.oldPlayerScore[0].score) {
-         alert("houuuraa");
-      }
-   }
+   end() {}
    /**
     * Game start, display alert box for name and start loop after
     * @memberof Game
@@ -79,8 +75,7 @@ class Game extends Snake {
       // remove start window
       const startBox = document.querySelector(".alertMessage");
       startBox.remove();
-      // get score
-      this.getPlayerOldScore(this.playerName);
+      this.canvas.style.display = "block";
       // render loop start
       this.renderLoop();
    }
