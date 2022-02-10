@@ -1,26 +1,12 @@
-class Snake {
-   constructor(
-      ctx,
-      canvasBox,
-      DrawClass,
-      headColor,
-      bodyColor,
-      incrementScore,
-      getFoodCoords,
-      applyRandomCoordsFood
-   ) {
-      this.ctx = ctx;
-      this.canvasBox = canvasBox;
-      this.drawClass = DrawClass;
-      this.headColor = headColor;
-      this.bodyColor = bodyColor;
-      this.incrementScore = incrementScore;
-      this.getFoodCoords = getFoodCoords;
-      this.applyRandomCoordsFood = applyRandomCoordsFood;
+import Canvas from "./Canvas";
+
+class Snake extends Canvas {
+   constructor() {
+      super();
       this.snake = [
          {
-            x: canvasBox * 5,
-            y: canvasBox * 8,
+            x: this.canvasBox * 5,
+            y: this.canvasBox * 8,
          },
       ];
       this.oldHeadX = this.snake[0].x;
@@ -29,7 +15,6 @@ class Snake {
       this.direction;
       document.addEventListener("keydown", this.changeDirection.bind(this));
    }
-
    /**
     * Change snake direction
     * @param {Event} e
@@ -46,7 +31,6 @@ class Snake {
          this.direction = "DOWN";
       }
    }
-
    /**
     * Create and display the snake
     * @memberof Snake
@@ -54,8 +38,8 @@ class Snake {
    createSnake() {
       let color = "";
       for (let i = 0; i < this.snake.length; i++) {
-         color = i == 0 ? this.headColor : this.bodyColor;
-         this.drawClass.drawRect(
+         color = i == 0 ? "red" : "grey";
+         this.drawRect(
             this.ctx,
             this.snake[i].x,
             this.snake[i].y,
@@ -65,32 +49,29 @@ class Snake {
          );
       }
       // check if snake touch food
-      if (
-         this.oldHeadX === this.getFoodCoords().x &&
-         this.oldHeadY === this.getFoodCoords().y
-      ) {
-         this.incrementScore();
-         this.applyRandomCoordsFood();
+      if (this.oldHeadX === this.food.x && this.oldHeadY === this.food.y) {
+         this.score += this.incScoreNumb;
+         this.food = this.randomFood();
       } else {
          this.snake.pop();
       }
       // move snake
-      if (this.direction === "LEFT") {
-         this.oldHeadX -= this.canvasBox;
-      }
-      if (this.direction === "UP") {
-         this.oldHeadY -= this.canvasBox;
-      }
-      if (this.direction === "RIGHT") {
-         this.oldHeadX += this.canvasBox;
-      }
-      if (this.direction === "DOWN") {
-         this.oldHeadY += this.canvasBox;
+      switch (this.direction) {
+         case "LEFT":
+            this.oldHeadX -= this.canvasBox;
+            break;
+         case "RIGHT":
+            this.oldHeadX += this.canvasBox;
+            break;
+         case "UP":
+            this.oldHeadY -= this.canvasBox;
+            break;
+         case "DOWN":
+            this.oldHeadY += this.canvasBox;
       }
       this.newHead = { x: this.oldHeadX, y: this.oldHeadY };
       this.snake.unshift(this.newHead);
    }
-
    /**
     * Check if snake collision himself
     * @param {{x: number, y: number}} head newHead

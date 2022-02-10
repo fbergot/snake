@@ -1,4 +1,9 @@
-class Draw {
+import Utils from "./Utils";
+
+class Draw extends Utils {
+   constructor() {
+      super();
+   }
    /**
     * Draw rect in Canvas
     * @static
@@ -11,7 +16,7 @@ class Draw {
     * @param {boolean} fill
     * @memberof Draw
     */
-   static drawRect(ctx, x, y, x_length, y_length, color) {
+   drawRect(ctx, x, y, x_length, y_length, color) {
       ctx.fillStyle = color;
       ctx.fillRect(x, y, x_length, y_length);
    }

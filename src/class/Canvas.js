@@ -1,6 +1,6 @@
-import Utils from "./Utils";
+import Draw from "./Draw";
 
-class Canvas extends Utils {
+class Canvas extends Draw {
    constructor() {
       super();
       this.canvas = document.getElementById("canvas");

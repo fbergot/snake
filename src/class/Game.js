@@ -1,43 +1,18 @@
-import Canvas from "./Canvas";
+import Snake from "./Snake";
 
-class Game extends Canvas {
-   constructor(Draw, Snake, apple) {
+class Game extends Snake {
+   constructor(apple) {
       super();
-      // injection
-      this.drawClass = Draw;
-      // game data
       this.score = 0;
-      this.speeds = {
-         1: 80,
-         2: 70,
-         3: 60,
-      };
+      this.speeds = [80, 70, 60];
       this.incScoreNumb = 10;
-      this.incrementScore = function () {
-         this.score += this.incScoreNumb;
-      };
       this.foodImage = new Image();
       this.foodImage.src = apple;
       this.food = this.randomFood();
-      this.applyRandomCoordsFood = () => {
-         this.food = this.randomFood();
-      };
-      this.getFoodCoords = () => {
-         return this.food;
-      };
       this.playerName = "";
-      this.snake = new Snake(
-         this.ctx,
-         this.canvasBox,
-         this.drawClass,
-         "red",
-         "grey",
-         this.incrementScore,
-         this.getFoodCoords,
-         this.applyRandomCoordsFood
-      );
+      this.snake;
+      this.state = true;
    }
-
    /**
     * Random food coords
     * @returns {{x: number, y: number}}
@@ -49,7 +24,6 @@ class Game extends Canvas {
          y: Math.floor(5 + Math.random() * 5) * this.canvasBox,
       };
    }
-
    /**
     * Game start, display alert box for name and start loop after
     * @memberof Game
@@ -67,7 +41,6 @@ class Game extends Canvas {
       );
       this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
    }
-
    /**
     * remove start window, render loop start
     * @memberof Game
@@ -86,29 +59,21 @@ class Game extends Canvas {
     * @memberof Game
     */
    drawBackground() {
-      this.drawClass.drawRect(
-         this.ctx,
-         0,
-         0,
-         this.canvasWidth,
-         this.canvasHeight,
-         "rgb(70, 175, 70)",
-         "fill"
-      );
+      this.drawRect(this.ctx, 0, 0, this.canvasWidth, this.canvasHeight, "rgb(70, 175, 70)");
    }
-
    /**
     * Render Game loop
     * @memberof Game
     */
-   renderLoop(stop) {
+   renderLoop() {
+      let timer;
       const draw = () => {
          this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
          this.drawBackground();
          this.ctx.drawImage(this.foodImage, this.food.x, this.food.y);
-         this.snake.createSnake();
-         if (stop) return;
-         window.setTimeout(draw, this.speeds["1"]);
+         this.createSnake();
+         if (!this.state) return;
+         window.setTimeout(draw, this.speeds[0]);
       };
       draw();
    }
