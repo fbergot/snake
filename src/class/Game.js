@@ -1,34 +1,53 @@
-class Game {
-   constructor(Draw, Utils, Snake, apple) {
+import Canvas from "./Canvas";
+
+class Game extends Canvas {
+   constructor(Draw, Snake, apple) {
+      super();
       // injection
       this.drawClass = Draw;
-      this.utilsClass = Utils;
-      // canvas
-      this.canvas = document.getElementById("canvas");
-      this.ctx = this.canvas.getContext("2d");
-      this.mainHTML = document.querySelector("main");
-      this.canvasWidth = window.innerWidth * 0.9;
-      this.canvasHeight = window.innerHeight * 0.9;
-      this.canvasBox = 30;
-      this.canvas.width = Math.floor(this.canvasWidth / this.canvasBox) * this.canvasBox;
-      this.canvas.height = Math.floor(this.canvasHeight / this.canvasBox) * this.canvasBox;
       // game data
       this.score = 0;
-      this.changeScore = function (addScore) {
-         this.score += addScore;
+      this.speeds = {
+         1: 80,
+         2: 70,
+         3: 60,
       };
-      //   snake and food
+      this.incScoreNumb = 10;
+      this.incrementScore = function () {
+         this.score += this.incScoreNumb;
+      };
+      this.foodImage = new Image();
+      this.foodImage.src = apple;
+      this.food = this.randomFood();
+      this.applyRandomCoordsFood = () => {
+         this.food = this.randomFood();
+      };
+      this.getFoodCoords = () => {
+         return this.food;
+      };
+      this.playerName = "";
       this.snake = new Snake(
          this.ctx,
          this.canvasBox,
          this.drawClass,
          "red",
          "grey",
-         apple,
-         this.changeScore
+         this.incrementScore,
+         this.getFoodCoords,
+         this.applyRandomCoordsFood
       );
-      this.playerName = "";
-      this.start();
+   }
+
+   /**
+    * Random food coords
+    * @returns {{x: number, y: number}}
+    * @memberof Snake
+    */
+   randomFood() {
+      return {
+         x: Math.floor(2 + Math.random() * 5) * this.canvasBox,
+         y: Math.floor(5 + Math.random() * 5) * this.canvasBox,
+      };
    }
 
    /**
@@ -36,7 +55,7 @@ class Game {
     * @memberof Game
     */
    start() {
-      this.utilsClass.windowBuildAndDisplay(
+      this.windowBuildAndDisplay(
          {
             content: "",
             contentButton: "valider",
@@ -46,7 +65,7 @@ class Game {
          },
          this.mainHTML
       );
-      this.utilsClass.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
+      this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
    }
 
    /**
@@ -54,7 +73,6 @@ class Game {
     * @memberof Game
     */
    initGame() {
-      // add player name
       const playerName = document.getElementById("name").value;
       this.playerName = playerName;
       // remove start window
@@ -83,13 +101,16 @@ class Game {
     * Render Game loop
     * @memberof Game
     */
-   renderLoop() {
+   renderLoop(stop) {
       const draw = () => {
          this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
          this.drawBackground();
+         this.ctx.drawImage(this.foodImage, this.food.x, this.food.y);
          this.snake.createSnake();
+         if (stop) return;
+         window.setTimeout(draw, this.speeds["1"]);
       };
-      this.loop = window.setInterval(draw, 100);
+      draw();
    }
 }
 

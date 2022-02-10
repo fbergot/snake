@@ -1,4 +1,9 @@
-class Utils {
+import LocalStorage from "./LocalStorage";
+
+class Utils extends LocalStorage {
+   constructor() {
+      super();
+   }
    /**
     *
     *
@@ -7,7 +12,7 @@ class Utils {
     * @param {HTMLElement} parent
     * @memberof Utils
     */
-   static windowBuildAndDisplay(options, parent) {
+   windowBuildAndDisplay(options, parent) {
       let inputOrNot = "";
       if (options.contentLabel) {
          inputOrNot = `
@@ -38,9 +43,9 @@ class Utils {
     * @param {() => void} callback
     * @memberof Utils
     */
-   static addEvListener(tagForTarget, typeEvent, callback) {
-      const element = document.querySelector(tagForTarget);
-      element.addEventListener(typeEvent, callback);
+   addEvListener(tagForTarget, typeEvent, callback) {
+      const target = document.querySelector(tagForTarget);
+      target.addEventListener(typeEvent, callback);
    }
 }
 

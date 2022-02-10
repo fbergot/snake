@@ -11,11 +11,9 @@ class Draw {
     * @param {boolean} fill
     * @memberof Draw
     */
-   static drawRect(ctx, x, y, x_length, y_length, color, fill) {
+   static drawRect(ctx, x, y, x_length, y_length, color) {
       ctx.fillStyle = color;
       ctx.fillRect(x, y, x_length, y_length);
-      if (fill === "fill") ctx.fill();
-      else if (fill === "fillRect") ctx.fillRect();
    }
 }
 

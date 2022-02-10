@@ -1,14 +1,22 @@
 class Snake {
-   constructor(ctx, canvasBox, DrawClass, headColor, bodyColor, apple, changeScore) {
+   constructor(
+      ctx,
+      canvasBox,
+      DrawClass,
+      headColor,
+      bodyColor,
+      incrementScore,
+      getFoodCoords,
+      applyRandomCoordsFood
+   ) {
       this.ctx = ctx;
       this.canvasBox = canvasBox;
       this.drawClass = DrawClass;
       this.headColor = headColor;
       this.bodyColor = bodyColor;
-      this.foodImage = new Image();
-      this.foodImage.src = apple;
-      this.changeScore = changeScore;
-      this.food = this.randomFood();
+      this.incrementScore = incrementScore;
+      this.getFoodCoords = getFoodCoords;
+      this.applyRandomCoordsFood = applyRandomCoordsFood;
       this.snake = [
          {
             x: canvasBox * 5,
@@ -20,18 +28,6 @@ class Snake {
       this.newHead;
       this.direction;
       document.addEventListener("keydown", this.changeDirection.bind(this));
-   }
-
-   /**
-    * Random food coords
-    * @returns {{x: number, y: number}}
-    * @memberof Snake
-    */
-   randomFood() {
-      return {
-         x: Math.floor(2 + Math.random() * 20) * this.canvasBox,
-         y: Math.floor(5 + Math.random() * 20) * this.canvasBox,
-      };
    }
 
    /**
@@ -56,7 +52,6 @@ class Snake {
     * @memberof Snake
     */
    createSnake() {
-      this.drawFood(this.food);
       let color = "";
       for (let i = 0; i < this.snake.length; i++) {
          color = i == 0 ? this.headColor : this.bodyColor;
@@ -66,14 +61,16 @@ class Snake {
             this.snake[i].y,
             this.canvasBox,
             this.canvasBox,
-            color,
-            "fill"
+            color
          );
       }
       // check if snake touch food
-      if (this.oldHeadX === this.food.x && this.oldHeadY === this.food.y) {
-         this.changeScore(10);
-         this.food = this.randomFood();
+      if (
+         this.oldHeadX === this.getFoodCoords().x &&
+         this.oldHeadY === this.getFoodCoords().y
+      ) {
+         this.incrementScore();
+         this.applyRandomCoordsFood();
       } else {
          this.snake.pop();
       }
@@ -95,25 +92,16 @@ class Snake {
    }
 
    /**
-    * Draw the food in canvas according to coords
-    * @param {{x: number, y: number}} foodCoords
-    * @memberof Snake
-    */
-   drawFood(foodCoords) {
-      this.ctx.drawImage(this.foodImage, foodCoords.x, foodCoords.y);
-   }
-
-   /**
     * Check if snake collision himself
     * @param {{x: number, y: number}} head newHead
-    * @param {{x: number, y: number}[]} snake snake body
+    * @param {{x: number, y: number}[]} bodySnake snake body
     * @returns {boolean}
     * @memberof Snake
     */
-   collision(head, snake) {
+   collision(head, bodySnake) {
       let i;
-      for (i = 0; i < snake.length; i++) {
-         if (head.x == snake[i].x && head.y == snake[i].y) {
+      for (i = 0; i < bodySnake.length; i++) {
+         if (head.x == bodySnake[i].x && head.y == bodySnake[i].y) {
             return true;
          }
       }
