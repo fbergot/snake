@@ -21,14 +21,18 @@ class Snake extends Canvas {
     * @memberof Snake
     */
    changeDirection(e) {
-      if (e.keyCode === 37 && this.direction != "RIGHT") {
-         this.direction = "LEFT";
-      } else if (e.keyCode === 38 && this.direction != "DOWN") {
-         this.direction = "UP";
-      } else if (e.keyCode === 39 && this.direction != "LEFT") {
-         this.direction = "RIGHT";
-      } else if (e.keyCode === 40 && this.direction != "UP") {
-         this.direction = "DOWN";
+      switch (true) {
+         case e.keyCode === 37 && this.direction != "RIGHT":
+            this.direction = "LEFT";
+            break;
+         case e.keyCode === 38 && this.direction != "DOWN":
+            this.direction = "UP";
+            break;
+         case e.keyCode === 39 && this.direction != "LEFT":
+            this.direction = "RIGHT";
+            break;
+         case e.keyCode === 40 && this.direction != "UP":
+            this.direction = "DOWN";
       }
    }
    /**
@@ -50,8 +54,7 @@ class Snake extends Canvas {
       }
       // check if snake touch food
       if (this.oldHeadX === this.food.x && this.oldHeadY === this.food.y) {
-         this.score += this.incScoreNumb;
-         this.food = this.randomFood();
+         this.updateAfterFoodCollision();
       } else {
          this.snake.pop();
       }

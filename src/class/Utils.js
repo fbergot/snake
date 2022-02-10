@@ -3,6 +3,8 @@ import LocalStorage from "./LocalStorage";
 class Utils extends LocalStorage {
    constructor() {
       super();
+      this.scoreContainer = document.getElementById("score");
+      this.speedContainer = document.getElementById("speed");
    }
    /**
     *
@@ -46,6 +48,70 @@ class Utils extends LocalStorage {
    addEvListener(tagForTarget, typeEvent, callback) {
       const target = document.querySelector(tagForTarget);
       target.addEventListener(typeEvent, callback);
+   }
+   /**
+    *
+    * Display game data (speed, score)
+    * @memberof Utils
+    */
+   displayScoreAndSpeed(speed, score) {
+      this.scoreContainer.textContent = score;
+      this.speedContainer.textContent = speed;
+   }
+   /**
+    *
+    *
+    * @param {string} nameOfPlayer
+    * @memberof Utils
+    */
+   getPlayerOldScore(nameOfPlayer) {
+      const oldScore = this.getItem("snakeScore");
+      if (oldScore) {
+         const playerScore = oldScore.filter((score) => {
+            return score.name === nameOfPlayer;
+         });
+         if (playerScore) {
+            return playerScore;
+         }
+         return null;
+      }
+      return null;
+   }
+
+   /*
+    *
+    * @param {number} score
+    * @param {string} nameOfPlayer
+    * @memberof Utils
+    */
+   addNewPlayerScore(score, nameOfPlayer) {
+      let total_score_of_players;
+      const dataplayer = {
+         name: nameOfPlayer,
+         score: score,
+      };
+      // check if data exist
+      const scoreTotal = this.getItem("snakeScore");
+      if (!scoreTotal) {
+         total_score_of_players = [];
+         total_score_of_players.push(dataplayer);
+         this.setItem("snakeScore", total_score_of_players);
+         return;
+      }
+      const oldScoreOfPlayer = scoreTotal.find((scoreData) => {
+         return scoreData.name === nameOfPlayer;
+      });
+
+      if (oldScoreOfPlayer) {
+         if (oldScoreOfPlayer.score > score) {
+            oldScoreOfPlayer.score = score;
+         }
+      } else {
+         this.setItem("snakeScore", scoreTotal);
+         return;
+      }
+      scoreTotal.push(dataplayer);
+      this.setItem("snakeScore", scoreTotal);
    }
 }
 

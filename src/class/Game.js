@@ -4,13 +4,17 @@ class Game extends Snake {
    constructor(apple) {
       super();
       this.score = 0;
-      this.speeds = [80, 70, 60];
+      this.oldPlayerScore;
+      this.speed = [80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30];
+      this.selectorSpeed = 0;
+      this.actualSpeed = this.speed[this.selectorSpeed];
+      this.speedDecrement = 1;
       this.incScoreNumb = 10;
       this.foodImage = new Image();
       this.foodImage.src = apple;
-      this.food = this.randomFood();
+      this.foodImage.style.width = `${this.canvasBox} px`;
+      this.food = this.randomCoords();
       this.playerName = "";
-      this.snake;
       this.state = true;
    }
    /**
@@ -18,11 +22,35 @@ class Game extends Snake {
     * @returns {{x: number, y: number}}
     * @memberof Snake
     */
-   randomFood() {
+   randomCoords() {
+      const xConv = this.canvas.width / this.canvasBox;
+      const yConv = this.canvas.height / this.canvasBox;
       return {
-         x: Math.floor(2 + Math.random() * 5) * this.canvasBox,
-         y: Math.floor(5 + Math.random() * 5) * this.canvasBox,
+         x: Math.floor(Math.random() * xConv) * this.canvasBox,
+         y: Math.floor(Math.random() * yConv) * this.canvasBox,
       };
+   }
+
+   /**
+    * Update after food collision (score, speed, food coords...)
+    * @memberof Game
+    */
+   updateAfterFoodCollision() {
+      this.score += this.incScoreNumb;
+      this.food = this.randomCoords();
+      if (this.score % 50 === 0) {
+         this.actualSpeed = this.speed[++this.selectorSpeed];
+      }
+      // update
+      this.displayScoreAndSpeed(this.actualSpeed, this.score);
+      this.oldPlayerScore = this.getPlayerOldScore(this.playerName);
+      console.log("oldscore:", this.oldPlayerScore);
+   }
+
+   end() {
+      if (this.oldPlayerScore && this.score > this.oldPlayerScore[0].score) {
+         alert("houuuraa");
+      }
    }
    /**
     * Game start, display alert box for name and start loop after
@@ -51,6 +79,8 @@ class Game extends Snake {
       // remove start window
       const startBox = document.querySelector(".alertMessage");
       startBox.remove();
+      // get score
+      this.getPlayerOldScore(this.playerName);
       // render loop start
       this.renderLoop();
    }
@@ -59,21 +89,21 @@ class Game extends Snake {
     * @memberof Game
     */
    drawBackground() {
-      this.drawRect(this.ctx, 0, 0, this.canvasWidth, this.canvasHeight, "rgb(70, 175, 70)");
+      this.drawRect(this.ctx, 0, 0, this.canvasWidth, this.canvasHeight, "#27ae4d");
    }
    /**
     * Render Game loop
     * @memberof Game
     */
    renderLoop() {
-      let timer;
       const draw = () => {
+         this.end();
          this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
          this.drawBackground();
          this.ctx.drawImage(this.foodImage, this.food.x, this.food.y);
          this.createSnake();
          if (!this.state) return;
-         window.setTimeout(draw, this.speeds[0]);
+         window.setTimeout(draw, this.actualSpeed);
       };
       draw();
    }

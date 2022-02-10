@@ -3,10 +3,10 @@ class LocalStorage {
     * Stringify and set item in localStorage
     * @static
     * @param {string} key
-    * @param {string} value
+    * @param {*} value
     * @memberof LocalStorage
     */
-   static setItem(key, value) {
+   setItem(key, value) {
       const jsonValue = JSON.stringify(value);
       window.localStorage.setItem(key, jsonValue);
    }
@@ -15,12 +15,12 @@ class LocalStorage {
     * Get item and parse
     * @static
     * @param {string} key
-    * @returns {any}
+    * @returns {any | null}
     * @memberof LocalStorage
     */
-   static getItem(key) {
+   getItem(key) {
       const jsonValue = window.localStorage.getItem(key);
-      if (!jsonValue) throw Error("Not item with this key");
+      if (!jsonValue) return null;
 
       return JSON.parse(jsonValue);
    }
