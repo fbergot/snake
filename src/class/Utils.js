@@ -115,6 +115,55 @@ class Utils extends LocalStorage {
          this.setItem(this.keyScore, scoreTotal);
       }
    }
+
+   /**
+    *
+    *
+    * @param {{name: string, score: number}} data
+    * @memberof Utils
+    */
+   createLine(data, rating) {
+      return `
+         <div class='result_row'>
+            <p>${rating}</p>
+            <p>${data.name}</p>
+            <p>${data.score}</p>
+         </div>
+      `;
+   }
+
+   /**
+    * Build array of bests scores in order
+    * @param {{name: string, score: number}[]} bestsScores
+    * @param {HTMLElement} parent
+    * @memberof Utils
+    */
+   builBestsScores(bestsScores, parent) {
+      const sortedScores = this.sortDecroissant(bestsScores);
+      const container = document.createElement("div");
+      container.classList.add("container_scores");
+      let lines = "<h2>Classement</h2>";
+      // create each line
+      sortedScores.forEach((scoreData, index) => {
+         lines += this.createLine(scoreData, index + 1);
+      });
+
+      container.innerHTML = lines;
+      parent.appendChild(container);
+   }
+
+   sortDecroissant(arr) {
+      let i = 0;
+
+      while (i < arr.length) {
+         if (arr[i + 1] && arr[i].score < arr[i + 1].score) {
+            [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+            i = -1;
+         }
+         i++;
+      }
+      return arr;
+   }
 }
 
 export default Utils;

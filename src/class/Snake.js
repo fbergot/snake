@@ -3,17 +3,13 @@ import Canvas from "./Canvas";
 class Snake extends Canvas {
    constructor() {
       super();
-      this.snake = [
-         {
-            x: this.canvasBox * 5,
-            y: this.canvasBox * 8,
-         },
-      ];
-      this.oldHeadX = this.snake[0].x;
-      this.oldHeadY = this.snake[0].y;
       this.newHead;
       this.direction;
-      document.addEventListener("keydown", this.changeDirection.bind(this));
+      this.snake = [{ x: this.canvasBox * 5, y: this.canvasBox * 8 }];
+      this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
+      // this.oldHeadX = this.snake[0].x;
+      // this.oldHeadY = this.snake[0].y;
+      this.addEvListener("html", "keydown", this.changeDirection.bind(this));
    }
    /**
     * Change snake direction
@@ -22,16 +18,16 @@ class Snake extends Canvas {
     */
    changeDirection(e) {
       switch (true) {
-         case e.keyCode === 37 && this.direction != "RIGHT":
+         case e.keyCode === 37 && this.direction !== "RIGHT":
             this.direction = "LEFT";
             break;
-         case e.keyCode === 38 && this.direction != "DOWN":
+         case e.keyCode === 38 && this.direction !== "DOWN":
             this.direction = "UP";
             break;
-         case e.keyCode === 39 && this.direction != "LEFT":
+         case e.keyCode === 39 && this.direction !== "LEFT":
             this.direction = "RIGHT";
             break;
-         case e.keyCode === 40 && this.direction != "UP":
+         case e.keyCode === 40 && this.direction !== "UP":
             this.direction = "DOWN";
       }
    }
@@ -53,27 +49,37 @@ class Snake extends Canvas {
          );
       }
       // check if snake touch food
-      if (this.oldHeadX === this.food.x && this.oldHeadY === this.food.y) {
+      if (this.oldHead.x === this.food.x && this.oldHead.y === this.food.y) {
          this.updateAfterFoodCollision();
       } else {
          this.snake.pop();
       }
-      // move snake
+      this.applyDirection();
+      this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
+      if (this.collision(this.oldHead, this.snake)) {
+         alert("ok");
+      }
+      this.snake.unshift(this.newHead);
+   }
+
+   /**
+    * Apply snake move direction
+    * @memberof Snake
+    */
+   applyDirection() {
       switch (this.direction) {
          case "LEFT":
-            this.oldHeadX -= this.canvasBox;
+            this.oldHead.x -= this.canvasBox;
             break;
          case "RIGHT":
-            this.oldHeadX += this.canvasBox;
+            this.oldHead.x += this.canvasBox;
             break;
          case "UP":
-            this.oldHeadY -= this.canvasBox;
+            this.oldHead.y -= this.canvasBox;
             break;
          case "DOWN":
-            this.oldHeadY += this.canvasBox;
+            this.oldHead.y += this.canvasBox;
       }
-      this.newHead = { x: this.oldHeadX, y: this.oldHeadY };
-      this.snake.unshift(this.newHead);
    }
    /**
     * Check if snake collision himself
