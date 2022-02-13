@@ -88,20 +88,21 @@ class Utils extends LocalStorage {
          name: nameOfPlayer,
          score: score,
       };
-      // check if data exist
       const scoreTotal = this.getItem(this.keyScore);
+      // check if data exist
       if (!scoreTotal) {
          total_score_of_players = [];
          total_score_of_players.push(dataplayer);
          this.setItem(this.keyScore, total_score_of_players);
          return;
       }
+      // if exist ..
       const oldScoreOfPlayer = scoreTotal.find((scoreData) => {
          return scoreData.name === nameOfPlayer;
       });
       // check if old score for this player
       if (oldScoreOfPlayer) {
-         if (oldScoreOfPlayer.score < score) {
+         if (score > oldScoreOfPlayer.score) {
             oldScoreOfPlayer.score = score;
             total_score_without_scoreActualPlyer = scoreTotal.filter((scorePlayer) => {
                return scorePlayer.name !== nameOfPlayer;

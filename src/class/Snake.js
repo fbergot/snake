@@ -54,8 +54,10 @@ class Snake extends Canvas {
       } else {
          this.snake.pop();
       }
+
       this.applyDirection();
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
+      // check if the snake hits the fruit
       if (this.collision(this.oldHead, this.snake)) {
          alert("ok");
       }
