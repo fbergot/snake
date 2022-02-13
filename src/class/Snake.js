@@ -7,8 +7,6 @@ class Snake extends Canvas {
       this.direction;
       this.snake = [{ x: this.canvasBox * 5, y: this.canvasBox * 8 }];
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
-      // this.oldHeadX = this.snake[0].x;
-      // this.oldHeadY = this.snake[0].y;
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));
    }
    /**
@@ -48,7 +46,7 @@ class Snake extends Canvas {
             color
          );
       }
-      // check if snake touch food
+      // check if the snake hits the food
       if (this.oldHead.x === this.food.x && this.oldHead.y === this.food.y) {
          this.updateAfterFoodCollision();
       } else {
@@ -57,8 +55,9 @@ class Snake extends Canvas {
 
       this.applyDirection();
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
-      // check if the snake hits the fruit
+      // check if snake hits himself
       if (this.collision(this.oldHead, this.snake)) {
+         this.gameOverSound.play();
          alert("ok");
       }
       this.snake.unshift(this.newHead);

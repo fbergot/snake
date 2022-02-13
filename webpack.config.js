@@ -27,6 +27,10 @@ module.exports = {
             exclude: /node_modules/,
             loader: "babel-loader",
          },
+         {
+            test: /\.mp3$/,
+            loader: "file-loader",
+         },
       ],
    },
 };

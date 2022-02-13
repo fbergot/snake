@@ -1,7 +1,7 @@
 import Snake from "./Snake";
 
 class Game extends Snake {
-   constructor(foodPath) {
+   constructor(foodPath, gameOverSound, eatFood) {
       super();
       this.score = 0;
       this.oldPlayerScore;
@@ -10,13 +10,15 @@ class Game extends Snake {
       this.actualSpeed = this.speed[this.selectorSpeed];
       this.speedDecrement = 1;
       this.incScoreNumb = 10;
-      this.foodImage = new Image();
-      this.foodImage.src = foodPath;
-      this.foodImage.style.width = `${this.canvasBox} px;`;
-      this.food = this.randomCoords();
       this.playerName = "";
       this.state = true;
-      this.backgroundColor = "#799FBE";
+      this.backgroundColor = "#48A72B";
+      this.food = this.randomCoords();
+      // sound & img
+      this.foodImage = new Image();
+      this.foodImage.src = foodPath;
+      this.gameOverSound = new Audio(gameOverSound);
+      this.eatTheFoodSound = new Audio(eatFood);
    }
    /**
     * Random food coords
@@ -49,6 +51,7 @@ class Game extends Snake {
     * @memberof Game
     */
    updateAfterFoodCollision() {
+      this.eatTheFoodSound.play();
       this.score += this.incScoreNumb;
       this.food = this.randomCoords();
       this.incrementSpeed();
@@ -85,10 +88,8 @@ class Game extends Snake {
       const playerName = document.getElementById("name").value;
       this.playerName = playerName;
       // remove start window
-      const startBox = document.querySelector(".alertMessage");
-      const scoreAndTitleBox = document.querySelector(".title");
-      scoreAndTitleBox.style.display = "block";
-      startBox.remove();
+      document.querySelector(".alertMessage").remove();
+      document.querySelector(".title").style.display = "block";
       this.canvas.style.display = "block";
       this.oldPlayerScore = this.getPlayerOldScore(this.playerName) || 0;
       // render loop start
