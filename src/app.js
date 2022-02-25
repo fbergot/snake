@@ -1,9 +1,9 @@
 import "./assets/CSS/style.css";
 import Game from "./class/Game";
-import Food from "../src/assets/picture/hamb2.png";
-import GameOver from "../src/assets/audio/gameOver.mp3";
-import EatFood from "../src/assets/audio/eatFood.mp3";
+import { images } from "./function/imgBuilder";
+import { sounds } from "./function/soundBuilder";
+import game_assets_deco from "./class/decorator/game_assets_dec";
 
-const game = new Game(Food, GameOver, EatFood);
+const game = game_assets_deco(Game, {images, sounds});
 
 game.start();

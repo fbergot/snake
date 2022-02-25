@@ -1,3 +1,8 @@
+@font-face {
+   font-family: "Action_Man";
+   src: url("../font/Action_Man_Shaded.ttf");
+}
+
 * {
    margin: 0;
    padding: 0;
@@ -9,13 +14,16 @@ body {
    height: 100vh;
    display: flex;
    justify-content: center;
-   align-items: center;
+   /* align-items: center; */
    position: relative;
 }
 main {
+   /* background: url(../picture/snake.png);
+   background-repeat: no-repeat;
+   background-size: contain; */
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   /* justify-content: center; */
    align-items: center;
 }
 
@@ -26,25 +34,31 @@ main {
    width: 500px;
    color: aliceblue;
    padding: 1rem;
-   background-color: #799fbe;
+   background-color: #48a72b;
    transform: translateX(-50%);
    display: none;
 }
 
 .title > h1 {
    text-align: center;
+   font-family: "Action_Man";
+   font-size: 3rem;
 }
 
 .alertMessage {
-   background-color: rgb(121, 159, 190);
+   background-color: #48a72b;
    border-radius: 0.7rem;
    width: 400px;
    height: 200px;
    position: relative;
 }
 
+#canvas {
+   margin-top: 0.5rem;
+}
+
 .initBackground {
-   background: url("../picture/marble.jpg");
+   background-color: #417d3a;
 }
 
 .alertMessage > div {
@@ -109,4 +123,34 @@ main {
    width: 33%;
    font-size: 1.2rem;
    text-align: center;
+}
+
+/* ------------------------- container bubble (score, speed, apple X) */
+.containerBubble {
+   width: 600px;
+   margin-top: 1rem;
+   display: flex;
+   justify-content: space-between;
+}
+
+.containerBubble div {
+   background-color: #5db337;
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+   border: 10px solid rgb(207, 207, 50);
+}
+
+.containerBubble p {
+   margin-left: 0.5rem;
+}
+
+.containerBubble > span {
+   background-color: #5db337;
+}
+
+.appleBubble {
+   width: 35px;
+   margin-left: 1.3rem;
+   margin-top: 0.4rem;
 }

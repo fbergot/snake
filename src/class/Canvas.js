@@ -3,7 +3,8 @@ import Draw from "./Draw";
 class Canvas extends Draw {
    constructor() {
       super();
-      this.canvas = document.getElementById("canvas");
+      this.canvas = document.createElement("canvas");
+      this.canvas.setAttribute("id", "canvas");
       this.ctx = this.canvas.getContext("2d");
       this.mainHTML = document.querySelector("main");
       this.canvasWidth =
@@ -13,6 +14,9 @@ class Canvas extends Draw {
       this.canvas.width = Math.floor(this.canvasWidth / this.canvasBox) * this.canvasBox;
       this.canvas.height = Math.floor(this.canvasHeight / this.canvasBox) * this.canvasBox;
       this.canvas.style.display = "none";
+      this.displayCanvas = () => {
+         this.mainHTML.appendChild(this.canvas);
+      };
    }
 }
 

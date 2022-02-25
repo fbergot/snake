@@ -1,10 +1,9 @@
 import LocalStorage from "./LocalStorage";
+import Food from "../assets/picture/food.png";
 
 class Utils extends LocalStorage {
    constructor() {
       super();
-      this.scoreContainer = document.getElementById("score");
-      this.speedContainer = document.getElementById("speed");
       this.keyScore = "snakeScore";
    }
    /**
@@ -55,8 +54,8 @@ class Utils extends LocalStorage {
     * @memberof Utils
     */
    displayScoreAndSpeed(speed, score) {
-      this.scoreContainer.textContent = score;
-      this.speedContainer.textContent = speed;
+      document.querySelector("#score").textContent = score;
+      document.querySelector("#speed").textContent = speed;
    }
    /**
     * @param {string} nameOfPlayer
@@ -164,6 +163,32 @@ class Utils extends LocalStorage {
          i++;
       }
       return arr;
+   }
+
+   /**
+    *
+    * @param {string} pathApple
+    * @param {HTMLElement} parent
+    * @memberof Utils
+    */
+   createBubbles(parent) {
+      const container = document.createElement("div");
+      container.classList.add("containerBubble");
+      container.innerHTML = `
+         <div>
+            <p>Score</p>
+            <span id='score'></span>
+         </div>
+         <div>
+            <p>Speed</p>
+            <span id='speed'></span>
+         </div>
+         <div>
+            <img class='appleBubble' src='${Food}'/>
+            <span id='apples'</span>
+         </div>
+      `;
+      parent.appendChild(container);
    }
 }
 
