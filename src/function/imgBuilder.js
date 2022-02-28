@@ -8,7 +8,7 @@ import BodyX from "../assets/picture/bodyX.png";
 /**
  * Build new image
  * @param {string} path
- * @returns
+ * @returns {HTMLImageElement}
  */
 function imgBuilder(path) {
    const img = new Image();

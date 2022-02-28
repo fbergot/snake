@@ -2,9 +2,9 @@ import GameOverSound from "../assets/audio/gameOver.mp3";
 import EatFood from "../assets/audio/eatFood.mp3";
 
 /**
- * Build new audio
+ * Build new audio HTML
  * @param {string} path
- * @returns
+ * @returns {HTMLAudioElement}
  */
 function soundBuilder(path) {
    return new Audio(path);
