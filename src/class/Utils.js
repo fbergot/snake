@@ -32,7 +32,9 @@ class Utils extends LocalStorage {
       div.innerHTML = `
             ${options.content}
             ${inputOrNot}
-            <button class='${options.classForButton}'>${options.contentButton}</button>
+            <div class='contButton'>
+               <button class='${options.classForButton}'>${options.contentButton}</button>
+            </div>
        `;
       parent.appendChild(div);
    }

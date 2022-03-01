@@ -14,17 +14,18 @@ body {
    height: 100vh;
    display: flex;
    justify-content: center;
-   /* align-items: center; */
    position: relative;
+   background-color: #5db337;
 }
 main {
-   /* background: url(../picture/snake.png);
+   background: url(../picture/snake-cartoon.png);
    background-repeat: no-repeat;
-   background-size: contain; */
+   background-size: contain;
    display: flex;
    flex-direction: column;
-   /* justify-content: center; */
+   justify-content: center;
    align-items: center;
+   position: relative;
 }
 
 .title {
@@ -45,20 +46,40 @@ main {
    font-size: 3rem;
 }
 
+#canvas {
+   margin-top: 0.5rem;
+   border: 10px solid #ffda51;
+}
+/* --------------------- alert message for name */
 .alertMessage {
    background-color: #48a72b;
    border-radius: 0.7rem;
    width: 400px;
-   height: 200px;
    position: relative;
+   margin-top: 5rem;
+   border: 10px solid #ffda51;
+   animation: startAlert 1.2s 1, alertBorder 1.2s infinite 1.2s;
 }
 
-#canvas {
-   margin-top: 0.5rem;
+@keyframes alertBorder {
+   0% {
+      border: 10px solid #ffda51;
+   }
+   100% {
+      border: 10px solid #5ca1f0;
+   }
 }
 
-.initBackground {
-   background-color: #417d3a;
+@keyframes startAlert {
+   0% {
+      transform: rotate(90deg);
+   }
+   50% {
+      transform: rotate(360deg);
+   }
+   100% {
+      transform: rotate(720deg);
+   }
 }
 
 .alertMessage > div {
@@ -72,29 +93,39 @@ main {
    font-size: 1.4rem;
    padding: 0.5rem;
    font-weight: normal;
-}
-
-.alertMessage > button {
-   position: absolute;
-   bottom: 10px;
-   left: 50%;
-   right: 50%;
-   transform: translateX(-50%);
+   color: #fff;
+   padding-bottom: 0.3rem;
 }
 
 #name {
-   padding: 0.6rem;
-   width: 90%;
+   padding: 0.3rem;
+   width: 80%;
    border-radius: 10px;
    font-size: 1.2rem;
 }
 
-.alertMessageBut {
-   padding: 1rem;
-   background-color: rgb(233, 238, 243);
-   cursor: pointer;
+.contButton {
+   display: flex;
+   justify-content: center;
+   padding: 0.4rem;
+   margin-top: 0.1rem;
 }
 
+.alertMessageBut {
+   padding: 0.5rem;
+   border-radius: 2rem;
+   background-color: #5db337;
+   border: 2px solid #fff;
+   cursor: pointer;
+   color: #fff;
+   font-size: 1.05rem;
+}
+
+.alertMessageBut:hover {
+   border: 2px solid #ffda51;
+   transition: all 0.3s;
+}
+/* ------------------------------ */
 .container_scores {
    text-align: center;
    background-color: #799fbe;
@@ -107,50 +138,43 @@ main {
    justify-content: center;
 }
 
-.container_scores > h2 {
-   padding: 1rem;
-   font-size: 1.4rem;
-   font-weight: normal;
-}
-
-.result_row {
-   display: flex;
-   justify-content: center;
-   width: 60%;
-}
-
-.result_row > p {
-   width: 33%;
-   font-size: 1.2rem;
-   text-align: center;
-}
-
 /* ------------------------- container bubble (score, speed, apple X) */
 .containerBubble {
-   width: 600px;
-   margin-top: 1rem;
+   width: 75%;
+   position: absolute;
+   top: 0;
    display: flex;
    justify-content: space-between;
 }
 
 .containerBubble div {
    background-color: #5db337;
-   width: 150px;
-   height: 150px;
+   width: 100px;
+   height: 100px;
    border-radius: 50%;
-   border: 10px solid rgb(207, 207, 50);
+   border: 10px solid #ffda51;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
 .containerBubble p {
-   margin-left: 0.5rem;
+   margin-top: 0.5rem;
+   text-align: center;
+   color: #fff;
 }
 
-.containerBubble > span {
+.containerBubble span {
    background-color: #5db337;
+   width: 50%;
+   text-align: center;
+   color: #fff;
+   font-weight: bold;
+   margin-top: 1rem;
 }
 
 .appleBubble {
-   width: 35px;
-   margin-left: 1.3rem;
+   width: 30px;
+   margin-left: 1.4rem;
    margin-top: 0.4rem;
 }

@@ -1,25 +1,25 @@
 {
-    "name": "snake",
-    "version": "1.0.0",
-    "description": "game the snake",
-    "private": true,
-    "author": "florian.bergot564@gmail.com",
-    "license": "MIT",
-    "scripts": {
-        "watch_build": "webpack --watch"
-    },
-    "dependencies": {
-        "prettier": "^2.5.1",
-        "webpack": "^5.68.0"
-    },
-    "devDependencies": {
-        "babel-core": "^6.26.3",
-        "babel-loader": "7",
-        "babel-preset-env": "^1.7.0",
-        "css-loader": "^6.6.0",
-        "file-loader": "^6.2.0",
-        "style-loader": "^3.3.1",
-        "webpack-cli": "^4.9.2",
-        "webpack-dev-server": "^4.7.4"
-    }
+   "name": "snake",
+   "version": "1.0.0",
+   "description": "game the snake",
+   "private": true,
+   "author": "florian.bergot564@gmail.com",
+   "license": "MIT",
+   "scripts": {
+      "build_w": "webpack --watch"
+   },
+   "dependencies": {
+      "prettier": "^2.5.1",
+      "webpack": "^5.68.0"
+   },
+   "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-loader": "7",
+      "babel-preset-env": "^1.7.0",
+      "css-loader": "^6.6.0",
+      "file-loader": "^6.2.0",
+      "style-loader": "^3.3.1",
+      "webpack-cli": "^4.9.2",
+      "webpack-dev-server": "^4.7.4"
+   }
 }

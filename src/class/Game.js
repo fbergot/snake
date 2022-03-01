@@ -55,7 +55,7 @@ class Game extends Snake {
       this.displayScoreAndSpeed(this.actualSpeed, this.score);
       this.addNewPlayerScore(this.score, this.playerName);
    }
-   
+
    end() {
       gameState.handleState();
       this.state = gameState.currentStateOfGame;
@@ -70,7 +70,7 @@ class Game extends Snake {
          {
             content: "",
             contentButton: "valider",
-            contentLabel: "Entrer votre nom",
+            contentLabel: "Entrez votre nom",
             classForDiv: "alertMessage",
             classForButton: "alertMessageBut",
          },
