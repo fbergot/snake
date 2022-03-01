@@ -52,7 +52,7 @@ class Game extends Snake {
       this.food = this.randomCoords();
       this.incrementSpeed();
       // update
-      this.displayScoreAndSpeed(this.actualSpeed, this.score);
+      this.displayScoreAndFood(this.actualSpeed, this.score);
       this.addNewPlayerScore(this.score, this.playerName);
    }
 

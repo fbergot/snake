@@ -15,6 +15,7 @@ class Canvas extends Draw {
       this.canvas.height = Math.floor(this.canvasHeight / this.canvasBox) * this.canvasBox;
       this.canvas.style.display = "none";
       this.displayCanvas = () => {
+         document.querySelector("header").classList.add("headerDim");
          this.mainHTML.appendChild(this.canvas);
       };
    }

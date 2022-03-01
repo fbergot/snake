@@ -55,9 +55,8 @@ class Utils extends LocalStorage {
     * Display game data (speed, score)
     * @memberof Utils
     */
-   displayScoreAndSpeed(speed, score) {
+   displayScoreAndFood(speed, score) {
       document.querySelector("#score").textContent = score;
-      document.querySelector("#speed").textContent = speed;
    }
    /**
     * @param {string} nameOfPlayer
@@ -179,15 +178,11 @@ class Utils extends LocalStorage {
       container.innerHTML = `
          <div>
             <p>Score</p>
-            <span id='score'></span>
-         </div>
+            <span class="score" id='score'>0</span>
+         </div>  
          <div>
-            <p>Speed</p>
-            <span id='speed'></span>
-         </div>
-         <div>
-            <img class='appleBubble' src='${Food}'/>
-            <span id='apples'</span>
+            <img class='appleBubble' src='${Food}' alt='food'/>
+            <span class="apples" id='apples'>0</span>
          </div>
       `;
       parent.appendChild(container);
