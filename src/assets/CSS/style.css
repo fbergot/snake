@@ -13,20 +13,22 @@
 body {
    height: 100vh;
    display: flex;
-   justify-content: center;
+   flex-direction: column;
+   /* justify-content: center; */
+   align-items: center;
    position: relative;
    background-color: #5db139;
 }
 
 .headerDim {
-   width: 190px;
-   transform: translateY(10%);
+   width: 220px;
 }
 
 header {
-   position: absolute;
+   /* position: absolute; */
    width: 400px;
    height: auto;
+   /* display: flex; */
 }
 
 header > img {
@@ -39,13 +41,13 @@ main {
    justify-content: center;
    align-items: center;
    position: relative;
+   top: 0;
 }
 
 #canvas {
-   margin-top: 0.5rem;
+   margin-top: -0.5rem;
    border: 15px solid #ffda51;
    border-radius: 20px;
-   transform: translateY(10%);
 }
 /* --------------------- alert message for name */
 .alertMessage {
@@ -53,7 +55,7 @@ main {
    border-radius: 0.7rem;
    width: 400px;
    position: relative;
-   margin-top: 5rem;
+   margin-top: -1.5rem;
    border: 10px solid #ffda51;
    animation: startAlert 1s 1, alertBorder 1.2s infinite 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -75,7 +77,7 @@ main {
       transform: rotate(360deg);
    }
    100% {
-      transform: rotate(720deg);
+      transform: rotate(1440deg);
    }
 }
 
@@ -139,7 +141,7 @@ main {
 .containerBubble {
    width: 75%;
    position: absolute;
-   top: 35px;
+   top: 10px;
    display: flex;
    justify-content: space-between;
 }

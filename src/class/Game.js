@@ -5,6 +5,7 @@ class Game extends Snake {
    constructor() {
       super();
       this.score = 0;
+      this.totalFood = 0;
       this.oldPlayerScore;
       this.speed = [80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25];
       this.selectorSpeed = 0;
@@ -52,7 +53,7 @@ class Game extends Snake {
       this.food = this.randomCoords();
       this.incrementSpeed();
       // update
-      this.displayScoreAndFood(this.actualSpeed, this.score);
+      this.displayScoreAndFood(++this.totalFood, this.score);
       this.addNewPlayerScore(this.score, this.playerName);
    }
 
@@ -84,12 +85,12 @@ class Game extends Snake {
     * @memberof Game
     */
    initGame() {
-      const playerName = document.getElementById("name").value;
+      const playerName = this.$("#name").value;
       this.playerName = playerName;
       // remove start window
-      document.querySelector(".alertMessage").remove();
+      this.$(".alertMessage").remove();
       this.canvas.style.display = "block";
-      this.createBubbles(this.mainHTML);
+      this.createBubbles(document.body);
       this.displayCanvas();
       this.oldPlayerScore = this.getPlayerOldScore(this.playerName) || 0;
       // render loop start

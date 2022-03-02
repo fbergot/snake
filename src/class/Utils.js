@@ -6,6 +6,16 @@ class Utils extends LocalStorage {
       super();
       this.keyScore = "snakeScore";
    }
+
+   /**
+    * Targeting HTMLElement
+    * @param {string} tag
+    * @returns {HTMLElement}
+    * @memberof Utils
+    */
+   $(tag) {
+      return document.querySelector(tag);
+   }
    /**
     *
     *
@@ -47,7 +57,7 @@ class Utils extends LocalStorage {
     * @memberof Utils
     */
    addEvListener(tagForTarget, typeEvent, callback) {
-      const target = document.querySelector(tagForTarget);
+      const target = this.$(tagForTarget);
       target.addEventListener(typeEvent, callback);
    }
    /**
@@ -55,8 +65,9 @@ class Utils extends LocalStorage {
     * Display game data (speed, score)
     * @memberof Utils
     */
-   displayScoreAndFood(speed, score) {
-      document.querySelector("#score").textContent = score;
+   displayScoreAndFood(apples, score) {
+      this.$("#score").textContent = score;
+      this.$("#apples").textContent = apples;
    }
    /**
     * @param {string} nameOfPlayer
@@ -167,7 +178,7 @@ class Utils extends LocalStorage {
    }
 
    /**
-    *
+    * Create score and apples bubbles
     * @param {string} pathApple
     * @param {HTMLElement} parent
     * @memberof Utils

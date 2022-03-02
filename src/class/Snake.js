@@ -6,7 +6,13 @@ class Snake extends Canvas {
       this.newHead;
       this.headImg;
       this.direction = "RIGHT";
-      this.snake = [{ x: this.canvasBox * 5, y: this.canvasBox * 8 }];
+      this.snake = [
+         { x: this.canvasBox * 5, y: this.canvasBox * 8 },
+         { x: this.canvasBox * 4, y: this.canvasBox * 8 },
+         { x: this.canvasBox * 3, y: this.canvasBox * 8 },
+         { x: this.canvasBox * 2, y: this.canvasBox * 8 },
+         { x: this.canvasBox * 1, y: this.canvasBox * 8 },
+      ];
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));
    }
@@ -68,6 +74,7 @@ class Snake extends Canvas {
       // check if snake hits himself
       if (this.collision(this.oldHead, this.snake)) {
          this.end();
+         return;
       }
       this.snake.unshift(this.newHead);
    }
