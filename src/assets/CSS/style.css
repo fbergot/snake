@@ -14,10 +14,17 @@ body {
    height: 100vh;
    display: flex;
    flex-direction: column;
-   /* justify-content: center; */
+   justify-content: center;
    align-items: center;
    position: relative;
    background-color: #5db139;
+}
+
+.genContainer {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
 
 .headerDim {
@@ -25,10 +32,8 @@ body {
 }
 
 header {
-   /* position: absolute; */
    width: 400px;
    height: auto;
-   /* display: flex; */
 }
 
 header > img {
@@ -62,10 +67,10 @@ main {
 
 @keyframes alertBorder {
    0% {
-      border: 10px solid #5ca1f0;
+      border-color: #5ca1f0;
    }
    100% {
-      border: 10px solid #ffda51;
+      border-color: #ffda51;
    }
 }
 
@@ -139,7 +144,7 @@ main {
 
 /* ------------------------- container bubble (score, speed, apple X) */
 .containerBubble {
-   width: 75%;
+   width: 50%;
    position: absolute;
    top: 10px;
    display: flex;

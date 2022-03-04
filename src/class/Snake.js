@@ -1,4 +1,5 @@
 import Canvas from "./Canvas";
+import GameState from "./state/GameState";
 
 class Snake extends Canvas {
    constructor() {
@@ -73,7 +74,7 @@ class Snake extends Canvas {
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
       // check if snake hits himself
       if (this.collision(this.oldHead, this.snake)) {
-         this.end();
+         GameState.handleState();
          return;
       }
       this.snake.unshift(this.newHead);

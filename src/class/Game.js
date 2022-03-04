@@ -1,5 +1,5 @@
 import Snake from "./Snake";
-import gameState from "./state/GameState";
+import GameState from "./state/GameState";
 
 class Game extends Snake {
    constructor() {
@@ -13,7 +13,7 @@ class Game extends Snake {
       this.speedDecrement = 1;
       this.incScoreNumb = 10;
       this.playerName = "";
-      this.state = gameState.currentStateOfGame;
+      this.state = GameState.currentStateOfGame;
       this.backgroundColor = "#5DB337";
       this.food = this.randomCoords();
    }
@@ -58,8 +58,6 @@ class Game extends Snake {
    }
 
    end() {
-      gameState.handleState();
-      this.state = gameState.currentStateOfGame;
       this.sounds.gameOver.play();
    }
    /**
@@ -90,7 +88,7 @@ class Game extends Snake {
       // remove start window
       this.$(".alertMessage").remove();
       this.canvas.style.display = "block";
-      this.createBubbles(document.body);
+      this.createBubbles(this.$(".genContainer"));
       this.displayCanvas();
       this.oldPlayerScore = this.getPlayerOldScore(this.playerName) || 0;
       // render loop start
@@ -107,7 +105,6 @@ class Game extends Snake {
     * Render Game loop
     * @memberof Game
     */
-
    renderLoop() {
       const draw = () => {
          this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
@@ -120,7 +117,7 @@ class Game extends Snake {
             this.canvasBox
          );
          this.createSnake();
-         if (this.state === "end") return;
+         if (GameState.currentStateOfGame === "end") return this.end();
          window.setTimeout(draw, this.actualSpeed);
       };
       draw();
