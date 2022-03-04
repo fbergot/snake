@@ -1,5 +1,4 @@
 import Draw from "./Draw";
-import SnakeBorder from "../assets/picture/snakeBorder.png";
 
 class Canvas extends Draw {
    constructor() {
@@ -13,11 +12,9 @@ class Canvas extends Draw {
       this.canvasBox = window.innerWidth > 420 ? 25 : 15;
       this.canvas.width = Math.floor(this.canvasWidth / this.canvasBox) * this.canvasBox;
       this.canvas.height = Math.floor(this.canvasHeight / this.canvasBox) * this.canvasBox;
-      this.canvas.style.display = "none";
       this.mainHTML = this.$("main");
+      this.mainHTML.appendChild(this.canvas);
       this.displayCanvas = () => {
-         this.$("header img").src = SnakeBorder;
-         this.mainHTML.appendChild(this.canvas);
          this.mainHTML.style.display = "block";
       };
    }

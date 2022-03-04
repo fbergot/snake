@@ -14,6 +14,7 @@ class Snake extends Canvas {
          { x: this.canvasBox * 2, y: this.canvasBox * 8 },
          { x: this.canvasBox * 1, y: this.canvasBox * 8 },
       ];
+      this.i;
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));
    }
@@ -37,33 +38,46 @@ class Snake extends Canvas {
             this.direction = "DOWN";
       }
    }
+
+   headSnake() {
+      switch (this.direction) {
+         case "UP":
+            this.headImg = this.images.snake.head.top;
+            break;
+         case "DOWN":
+            this.headImg = this.images.snake.head.bottom;
+            break;
+         case "LEFT":
+            this.headImg = this.images.snake.head.left;
+            break;
+         case "RIGHT":
+            this.headImg = this.images.snake.head.right;
+      }
+   }
+
+   /**
+    *
+    *
+    * @memberof Snake
+    */
+   updateSnake() {
+      for (this.i = 0; this.i < this.snake.length; this.i++) {
+         this.headSnake();
+         this.ctx.drawImage(
+            this.i === 0 ? this.headImg : this.images.snake.body,
+            this.snake[this.i].x,
+            this.snake[this.i].y,
+            this.canvasBox,
+            this.canvasBox
+         );
+      }
+   }
    /**
     * Create and display the snake
     * @memberof Snake
     */
    createSnake() {
-      for (let i = 0; i < this.snake.length; i++) {
-         switch (this.direction) {
-            case "UP":
-               this.headImg = this.images.snake.head.top;
-               break;
-            case "DOWN":
-               this.headImg = this.images.snake.head.bottom;
-               break;
-            case "LEFT":
-               this.headImg = this.images.snake.head.left;
-               break;
-            case "RIGHT":
-               this.headImg = this.images.snake.head.right;
-         }
-         this.ctx.drawImage(
-            i === 0 ? this.headImg : this.images.snake.body,
-            this.snake[i].x,
-            this.snake[i].y,
-            this.canvasBox,
-            this.canvasBox
-         );
-      }
+      this.updateSnake();
       // check if the snake hits the food
       if (this.oldHead.x === this.food.x && this.oldHead.y === this.food.y) {
          this.updateAfterFoodCollision();
@@ -72,8 +86,10 @@ class Snake extends Canvas {
       }
       this.applyDirection();
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
+      this.canvasSnakeLimit();
       // check if snake hits himself
       if (this.collision(this.oldHead, this.snake)) {
+         // state = 'end'
          GameState.handleState();
          return;
       }
@@ -97,6 +113,27 @@ class Snake extends Canvas {
             break;
          case "DOWN":
             this.oldHead.y += this.canvasBox;
+      }
+   }
+
+   /**
+    * give limits of game (x/y)
+    * @memberof Snake
+    */
+   canvasSnakeLimit() {
+      switch (true) {
+         case this.newHead.x < 0:
+            GameState.handleState();
+            break;
+         case this.newHead.x > this.canvasWidth - this.canvasBox:
+            GameState.handleState();
+            break;
+         case this.newHead.y < 0:
+            GameState.handleState();
+            break;
+         case this.newHead.y > this.canvasHeight - this.canvasBox:
+            GameState.handleState();
+            break;
       }
    }
    /**

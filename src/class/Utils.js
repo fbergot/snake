@@ -36,8 +36,7 @@ class Utils extends LocalStorage {
       }
       // create external box
       const div = document.createElement("div");
-      div.innerText = options.content;
-      div.classList.add(options.classForDiv);
+      div.classList.add(options.classContainerPopup);
       // create input
       div.innerHTML = `
             ${options.content}
@@ -57,8 +56,7 @@ class Utils extends LocalStorage {
     * @memberof Utils
     */
    addEvListener(tagForTarget, typeEvent, callback) {
-      const target = this.$(tagForTarget);
-      target.addEventListener(typeEvent, callback);
+      this.$(tagForTarget).addEventListener(typeEvent, callback);
    }
    /**
     *

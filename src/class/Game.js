@@ -1,5 +1,6 @@
 import Snake from "./Snake";
 import GameState from "./state/GameState";
+import SnakeBorder from "../assets/picture/snakeBorder.png";
 
 class Game extends Snake {
    constructor() {
@@ -7,7 +8,7 @@ class Game extends Snake {
       this.score = 0;
       this.totalFood = 0;
       this.oldPlayerScore;
-      this.speed = [80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25];
+      this.speed = [90, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25];
       this.selectorSpeed = 0;
       this.actualSpeed = this.speed[this.selectorSpeed];
       this.speedDecrement = 1;
@@ -70,7 +71,7 @@ class Game extends Snake {
             content: "",
             contentButton: "valider",
             contentLabel: "Entrez votre nom",
-            classForDiv: "alertMessage",
+            classContainerPopup: "alertMessage",
             classForButton: "alertMessageBut",
          },
          this.mainHTML
@@ -90,16 +91,11 @@ class Game extends Snake {
       this.canvas.style.display = "block";
       this.createBubbles(this.$(".genContainer"));
       this.displayCanvas();
+      this.$("header img").src = SnakeBorder;
+      document.body.classList.add("bodyJustify-center");
       this.oldPlayerScore = this.getPlayerOldScore(this.playerName) || 0;
       // render loop start
       this.renderLoop();
-   }
-   /**
-    * Draw background game
-    * @memberof Game
-    */
-   drawBackground() {
-      this.drawRect(this.ctx, 0, 0, this.canvasWidth, this.canvasHeight, this.backgroundColor);
    }
    /**
     * Render Game loop
@@ -108,7 +104,6 @@ class Game extends Snake {
    renderLoop() {
       const draw = () => {
          this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-         this.drawBackground();
          this.ctx.drawImage(
             this.images.food,
             this.food.x,
@@ -117,7 +112,7 @@ class Game extends Snake {
             this.canvasBox
          );
          this.createSnake();
-         if (GameState.currentStateOfGame === "end") return this.end();
+         if (GameState.currentStateOfGame === "end") return void this.end();
          window.setTimeout(draw, this.actualSpeed);
       };
       draw();
