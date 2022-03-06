@@ -10,7 +10,6 @@ class Game extends Snake {
       this.score = 0;
       this.totalFood = 0;
       this.oldPlayerScore;
-      this.speedDecrement = 1;
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
@@ -41,7 +40,6 @@ class Game extends Snake {
       SpeedManager.incrementSpeed(this.totalFood);
       this.addNewPlayerScore(this.score, this.playerName);
    }
-
    /**
     * When player lose
     * @memberof Game
@@ -50,7 +48,9 @@ class Game extends Snake {
       this.sounds.gameOver.play();
       this.windowBuildAndDisplay(
          {
-            content: "Vous avez perdu :(",
+            content: `Perdu ${this.playerName} !
+                <p>Votre score: ${this.score} points</p>
+               `,
             contentButton: "Rejouer",
             contentLabel: null,
             classContainerPopup: ["alertEndMessage", "alertMessage"],
@@ -59,6 +59,7 @@ class Game extends Snake {
          document.body
       );
       this.$(".genContainer").classList.add("blurBody");
+      this.$(".endMessageBut").removeAttribute("disabled");
       this.addEvListener(".endMessageBut", "click", this.restart.bind(this));
    }
    /**
@@ -69,17 +70,24 @@ class Game extends Snake {
       this.windowBuildAndDisplay(
          {
             content: "",
-            contentButton: "valider",
-            contentLabel: "Entrez votre nom",
+            contentButton: "Valider",
+            contentLabel: "Entrez votre prénom",
             classContainerPopup: ["alertMessage"],
             classForButton: "alertMessageBut",
          },
          this.mainHTML
       );
+      this.addEvListener("input", "change", (e) => {
+         if (e.target.value != "") {
+            this.$(".alertMessageBut").removeAttribute("disabled");
+         } else {
+            this.$(".alertMessageBut").setAttribute("disabled", true);
+         }
+      });
       this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
+      // to do ==> manage players scores
       // this.builBestsScores(this.getItem("snakeScore"), this.mainHTML);
    }
-
    /**
     * Restart game
     * @memberof Game
@@ -88,14 +96,16 @@ class Game extends Snake {
       SpeedManager.selectorSpeed = 1;
       this.$(".alertEndMessage").remove();
       this.$(".genContainer").classList.remove("blurBody");
-      this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
+      // re-init snake properties
       this.score = 0;
       this.totalFood = 0;
       this.direction = "RIGHT";
+      this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
       this.food = this.randomCoords();
       this.displayScoreAndFood(this.totalFood, this.score);
+      // toggle state & run game loop
       GameState.handleState();
       this.renderLoop();
    }
