@@ -1,16 +1,18 @@
-import GameOverSound from "../assets/audio/gameOver.mp3";
-import EatFood from "../assets/audio/eatFood.mp3";
+import GameOverSound from "../assets/audio/end.mp3";
+import EatFood from "../assets/audio/tone.mp3";
 
 /**
  * Build new audio HTML
  * @param {string} path
  * @returns {HTMLAudioElement}
  */
-function soundBuilder(path) {
-   return new Audio(path);
+function soundBuilder(path, volume) {
+   const audio = new Audio(path);
+   audio.volume = volume;
+   return audio;
 }
 
 export const sounds = {
-   gameOver: soundBuilder(GameOverSound),
-   eatFood: soundBuilder(EatFood),
+   gameOver: soundBuilder(GameOverSound, 1),
+   eatFood: soundBuilder(EatFood, 1),
 };

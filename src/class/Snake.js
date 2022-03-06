@@ -1,5 +1,6 @@
 import Canvas from "./Canvas";
 import GameState from "./state/GameState";
+import startingSnakeBuilder from "../function/startingSnakeBuilder";
 
 class Snake extends Canvas {
    constructor() {
@@ -7,13 +8,7 @@ class Snake extends Canvas {
       this.newHead;
       this.headImg;
       this.direction = "RIGHT";
-      this.snake = [
-         { x: this.canvasBox * 5, y: this.canvasBox * 8 },
-         { x: this.canvasBox * 4, y: this.canvasBox * 8 },
-         { x: this.canvasBox * 3, y: this.canvasBox * 8 },
-         { x: this.canvasBox * 2, y: this.canvasBox * 8 },
-         { x: this.canvasBox * 1, y: this.canvasBox * 8 },
-      ];
+      this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
       this.i;
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));
@@ -39,6 +34,10 @@ class Snake extends Canvas {
       }
    }
 
+   /**
+    * Assign good head img according to direction
+    * @memberof Snake
+    */
    headSnake() {
       switch (this.direction) {
          case "UP":
@@ -56,8 +55,7 @@ class Snake extends Canvas {
    }
 
    /**
-    *
-    *
+    * Painting the snake
     * @memberof Snake
     */
    updateSnake() {
@@ -86,9 +84,8 @@ class Snake extends Canvas {
       }
       this.applyDirection();
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
-      this.canvasSnakeLimit();
       // check if snake hits himself
-      if (this.collision(this.oldHead, this.snake)) {
+      if (this.collision(this.oldHead, this.snake) || this.canvasSnakeLimit()) {
          // state = 'end'
          GameState.handleState();
          return;
@@ -123,17 +120,13 @@ class Snake extends Canvas {
    canvasSnakeLimit() {
       switch (true) {
          case this.newHead.x < 0:
-            GameState.handleState();
-            break;
+            return true;
          case this.newHead.x > this.canvasWidth - this.canvasBox:
-            GameState.handleState();
-            break;
+            return true;
          case this.newHead.y < 0:
-            GameState.handleState();
-            break;
+            return true;
          case this.newHead.y > this.canvasHeight - this.canvasBox:
-            GameState.handleState();
-            break;
+            return true;
       }
    }
    /**

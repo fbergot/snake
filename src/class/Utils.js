@@ -36,10 +36,12 @@ class Utils extends LocalStorage {
       }
       // create external box
       const div = document.createElement("div");
-      div.classList.add(options.classContainerPopup);
+      options.classContainerPopup.forEach((className) => {
+         div.classList.add(className);
+      });
       // create input
       div.innerHTML = `
-            ${options.content}
+            <p>${options.content}</p>
             ${inputOrNot}
             <div class='contButton'>
                <button class='${options.classForButton}'>${options.contentButton}</button>

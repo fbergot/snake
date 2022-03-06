@@ -1,5 +1,6 @@
 import Snake from "./Snake";
 import GameState from "./state/GameState";
+import startingSnakeBuilder from "../function/startingSnakeBuilder";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
 
 class Game extends Snake {
@@ -8,13 +9,17 @@ class Game extends Snake {
       this.score = 0;
       this.totalFood = 0;
       this.oldPlayerScore;
-      this.speed = [90, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25];
-      this.selectorSpeed = 0;
-      this.actualSpeed = this.speed[this.selectorSpeed];
+      this.speed = {
+         1: 100,
+         2: 90,
+         3: 80,
+         4: 70,
+      };
+      this.levelSpeedSelector = 1;
       this.speedDecrement = 1;
       this.incScoreNumb = 10;
       this.playerName = "";
-      this.state = GameState.currentStateOfGame;
+      // this.state = GameState.currentStateOfGame;
       this.backgroundColor = "#5DB337";
       this.food = this.randomCoords();
    }
@@ -37,10 +42,8 @@ class Game extends Snake {
     * @memberof Game
     */
    incrementSpeed() {
-      if (this.score % 50 === 0) {
-         if (this.speed[this.selectorSpeed + 1]) {
-            this.actualSpeed = this.speed[++this.selectorSpeed];
-         }
+      if (this.totalFood % 2 === 0 && this.speed[this.levelSpeedSelector + 1]) {
+         ++this.levelSpeedSelector;
       }
    }
 
@@ -60,6 +63,18 @@ class Game extends Snake {
 
    end() {
       this.sounds.gameOver.play();
+      this.windowBuildAndDisplay(
+         {
+            content: "Vous avez perdu :(",
+            contentButton: "Rejouer",
+            contentLabel: null,
+            classContainerPopup: ["alertEndMessage", "alertMessage"],
+            classForButton: "endMessageBut",
+         },
+         document.body
+      );
+      this.$(".genContainer").classList.add("blurBody");
+      this.addEvListener(".endMessageBut", "click", this.restart.bind(this));
    }
    /**
     * Game start, display alert box for name and start loop after
@@ -71,13 +86,34 @@ class Game extends Snake {
             content: "",
             contentButton: "valider",
             contentLabel: "Entrez votre nom",
-            classContainerPopup: "alertMessage",
+            classContainerPopup: ["alertMessage"],
             classForButton: "alertMessageBut",
          },
          this.mainHTML
       );
       this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
       // this.builBestsScores(this.getItem("snakeScore"), this.mainHTML);
+   }
+
+   /**
+    * Restart game
+    * @memberof Game
+    */
+   restart() {
+      this.$(".alertEndMessage").remove();
+      this.$(".genContainer").classList.remove("blurBody");
+      this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
+      this.score = 0;
+      this.totalFood = 0;
+      this.newHead;
+      this.headImg;
+      this.direction = "RIGHT";
+      this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
+      this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
+      this.food = this.randomCoords();
+      this.displayScoreAndFood(this.totalFood, this.score);
+      GameState.handleState();
+      this.renderLoop();
    }
    /**
     * remove start window, render loop start
@@ -112,8 +148,17 @@ class Game extends Snake {
             this.canvasBox
          );
          this.createSnake();
-         if (GameState.currentStateOfGame === "end") return void this.end();
-         window.setTimeout(draw, this.actualSpeed);
+         if (GameState.currentStateOfGame === "end") {
+            this.end();
+            window.clearTimeout(this.timer);
+            this.timer = null;
+            return;
+         }
+         if (!this.timer) {
+            this.timer = window.setTimeout(draw, this.speed[this.levelSpeedSelector]);
+         } else {
+            window.setTimeout(draw, this.speed[this.levelSpeedSelector]);
+         }
       };
       draw();
    }
