@@ -1,6 +1,7 @@
 class GameState {
    constructor() {
       this.states = ["inProgress", "end"];
+      this.m;
       this.currentState = this.states[0];
    }
 

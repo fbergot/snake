@@ -2,6 +2,7 @@ import Snake from "./Snake";
 import GameState from "./state/GameState";
 import startingSnakeBuilder from "../function/startingSnakeBuilder";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
+import SpeedManager from "./SpeedManager";
 
 class Game extends Snake {
    constructor() {
@@ -9,18 +10,9 @@ class Game extends Snake {
       this.score = 0;
       this.totalFood = 0;
       this.oldPlayerScore;
-      this.speed = {
-         1: 100,
-         2: 90,
-         3: 80,
-         4: 70,
-      };
-      this.levelSpeedSelector = 1;
       this.speedDecrement = 1;
       this.incScoreNumb = 10;
       this.playerName = "";
-      // this.state = GameState.currentStateOfGame;
-      this.backgroundColor = "#5DB337";
       this.food = this.randomCoords();
    }
    /**
@@ -36,17 +28,6 @@ class Game extends Snake {
          y: Math.floor(Math.random() * yConv) * this.canvasBox,
       };
    }
-
-   /**
-    * Increment speed of snake
-    * @memberof Game
-    */
-   incrementSpeed() {
-      if (this.totalFood % 2 === 0 && this.speed[this.levelSpeedSelector + 1]) {
-         ++this.levelSpeedSelector;
-      }
-   }
-
    /**
     * Update after food collision (score, speed, food coords...)
     * @memberof Game
@@ -55,12 +36,16 @@ class Game extends Snake {
       this.sounds.eatFood.play();
       this.score += this.incScoreNumb;
       this.food = this.randomCoords();
-      this.incrementSpeed();
       // update
       this.displayScoreAndFood(++this.totalFood, this.score);
+      SpeedManager.incrementSpeed(this.totalFood);
       this.addNewPlayerScore(this.score, this.playerName);
    }
 
+   /**
+    * When player lose
+    * @memberof Game
+    */
    end() {
       this.sounds.gameOver.play();
       this.windowBuildAndDisplay(
@@ -100,13 +85,12 @@ class Game extends Snake {
     * @memberof Game
     */
    restart() {
+      SpeedManager.selectorSpeed = 1;
       this.$(".alertEndMessage").remove();
       this.$(".genContainer").classList.remove("blurBody");
       this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
       this.score = 0;
       this.totalFood = 0;
-      this.newHead;
-      this.headImg;
       this.direction = "RIGHT";
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
@@ -155,9 +139,9 @@ class Game extends Snake {
             return;
          }
          if (!this.timer) {
-            this.timer = window.setTimeout(draw, this.speed[this.levelSpeedSelector]);
+            this.timer = window.setTimeout(draw, SpeedManager.currentSpeed);
          } else {
-            window.setTimeout(draw, this.speed[this.levelSpeedSelector]);
+            window.setTimeout(draw, SpeedManager.currentSpeed);
          }
       };
       draw();

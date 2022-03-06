@@ -17,9 +17,7 @@ class Utils extends LocalStorage {
       return document.querySelector(tag);
    }
    /**
-    *
-    *
-    * @static
+    * build popup
     * @param {{content: string, classForDiv: string}} options
     * @param {HTMLElement} parent
     * @memberof Utils
@@ -48,6 +46,29 @@ class Utils extends LocalStorage {
             </div>
        `;
       parent.appendChild(div);
+   }
+
+   /**
+    * Build speed message
+    * @param {HTMLElement} parent
+    * @param {string} message
+    * @memberof Utils
+    */
+   buildSpeedNotif(parent, message) {
+      let already;
+      let speedWindow;
+      if (!already) {
+         (() => {
+            speedWindow = document.createElement("div");
+            speedWindow.classList.add("speedNotif");
+            speedWindow.innerHTML = `<p>${message}</p>`;
+            already = true;
+         })();
+      }
+      parent.appendChild(speedWindow);
+      window.setTimeout(() => {
+         speedWindow.remove();
+      }, 1200);
    }
 
    /**
@@ -151,7 +172,7 @@ class Utils extends LocalStorage {
     * @memberof Utils
     */
    builBestsScores(bestsScores, parent) {
-      const sortedScores = this.sortDecroissant(bestsScores);
+      const sortedScores = bestsScores.sort((a, b) => a - b);
       const container = document.createElement("div");
       container.classList.add("container_scores");
       let lines = "<h2>Classement</h2>";
@@ -164,18 +185,7 @@ class Utils extends LocalStorage {
       parent.appendChild(container);
    }
 
-   sortDecroissant(arr) {
-      let i = 0;
-
-      while (i < arr.length) {
-         if (arr[i + 1] && arr[i].score < arr[i + 1].score) {
-            [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-            i = -1;
-         }
-         i++;
-      }
-      return arr;
-   }
+   sortDecroissant(arr) {}
 
    /**
     * Create score and apples bubbles
