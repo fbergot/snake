@@ -37,7 +37,9 @@ class Game extends Snake {
       this.food = this.randomCoords();
       // update
       this.displayScoreAndFood(++this.totalFood, this.score);
-      SpeedManager.incrementSpeed(this.totalFood);
+      if (SpeedManager.incrementSpeed(this.totalFood)) {
+         this.sounds.accSpeed.play();
+      }
       this.addNewPlayerScore(this.score, this.playerName);
    }
    /**
@@ -70,7 +72,7 @@ class Game extends Snake {
       this.windowBuildAndDisplay(
          {
             content: "",
-            contentButton: "Valider",
+            contentButton: "Validez",
             contentLabel: "Entrez votre prénom",
             classContainerPopup: ["alertMessage"],
             classForButton: "alertMessageBut",
@@ -100,7 +102,7 @@ class Game extends Snake {
       this.score = 0;
       this.totalFood = 0;
       this.direction = "RIGHT";
-      this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
+      this.snake = startingSnakeBuilder(7, 5, 15, this.canvasBox);
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
       this.food = this.randomCoords();

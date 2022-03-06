@@ -12,7 +12,7 @@ class LocalStorage {
    }
 
    /**
-    * Get item and parse
+    * Get item and parse before return
     * @static
     * @param {string} key
     * @returns {any | null}
@@ -21,7 +21,6 @@ class LocalStorage {
    getItem(key) {
       const jsonValue = window.localStorage.getItem(key);
       if (!jsonValue) return null;
-
       return JSON.parse(jsonValue);
    }
 }

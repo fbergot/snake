@@ -5,11 +5,11 @@ import startingSnakeBuilder from "../function/startingSnakeBuilder";
 class Snake extends Canvas {
    constructor() {
       super();
-      this.newHead;
+      this.i;
       this.headImg;
       this.direction = "RIGHT";
-      this.snake = startingSnakeBuilder(7, 5, 5, this.canvasBox);
-      this.i;
+      this.snake = startingSnakeBuilder(7, 5, 15, this.canvasBox);
+      this.newHead;
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));
    }
@@ -33,7 +33,6 @@ class Snake extends Canvas {
             this.direction = "DOWN";
       }
    }
-
    /**
     * Assign good head img according to direction
     * @memberof Snake

@@ -1,7 +1,6 @@
 class GameState {
    constructor() {
       this.states = ["inProgress", "end"];
-      this.m;
       this.currentState = this.states[0];
    }
 
@@ -25,6 +24,7 @@ class GameState {
    /**
     * Get current state of game
     * @readonly
+    * @return {string}
     * @memberof GameState
     */
    get currentStateOfGame() {

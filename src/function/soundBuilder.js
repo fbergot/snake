@@ -1,5 +1,6 @@
 import GameOverSound from "../assets/audio/end.mp3";
 import EatFood from "../assets/audio/tone.mp3";
+import AccSpeed from "../assets/audio/Califourchon.mp3";
 
 /**
  * Build new audio HTML
@@ -15,4 +16,5 @@ function soundBuilder(path, volume) {
 export const sounds = {
    gameOver: soundBuilder(GameOverSound, 1),
    eatFood: soundBuilder(EatFood, 1),
+   accSpeed: soundBuilder(AccSpeed, 1),
 };

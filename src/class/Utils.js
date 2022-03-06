@@ -1,12 +1,12 @@
 import LocalStorage from "./LocalStorage";
 import Food from "../assets/picture/food.png";
+import soundBuilder from "../function/soundBuilder";
 
 class Utils extends LocalStorage {
    constructor() {
       super();
       this.keyScore = "snakeScore";
    }
-
    /**
     * Targeting HTMLElement
     * @param {string} tag
@@ -42,12 +42,11 @@ class Utils extends LocalStorage {
             <p>${options.content}</p>
             ${inputOrNot}
             <div class='contButton'>
-               <button class='${options.classForButton}'>${options.contentButton}</button>
+               <button disabled class='${options.classForButton}'>${options.contentButton}</button>
             </div>
        `;
       parent.appendChild(div);
    }
-
    /**
     * Build speed message
     * @param {HTMLElement} parent
@@ -70,16 +69,15 @@ class Utils extends LocalStorage {
          speedWindow.remove();
       }, 1200);
    }
-
    /**
     * Add event listener with a function
-    * @param {string} tagForTarget
+    * @param {string} target
     * @param {string} typeEvent
-    * @param {() => void} callback
+    * @param {(e) => void} callback
     * @memberof Utils
     */
-   addEvListener(tagForTarget, typeEvent, callback) {
-      this.$(tagForTarget).addEventListener(typeEvent, callback);
+   addEvListener(target, typeEvent, callback) {
+      this.$(target).addEventListener(typeEvent, callback);
    }
    /**
     *
@@ -107,7 +105,6 @@ class Utils extends LocalStorage {
       }
       return null;
    }
-
    /*
     * @param {number} score
     * @param {string} nameOfPlayer
@@ -132,7 +129,7 @@ class Utils extends LocalStorage {
       const oldScoreOfPlayer = scoreTotal.find((scoreData) => {
          return scoreData.name === nameOfPlayer;
       });
-      // check if old score for this player
+      // check if old score exist for this player
       if (oldScoreOfPlayer) {
          if (score > oldScoreOfPlayer.score) {
             oldScoreOfPlayer.score = score;
@@ -148,10 +145,8 @@ class Utils extends LocalStorage {
          this.setItem(this.keyScore, scoreTotal);
       }
    }
-
    /**
-    *
-    *
+    * Creation row for <table> (scores)
     * @param {{name: string, score: number}} data
     * @memberof Utils
     */
@@ -164,7 +159,6 @@ class Utils extends LocalStorage {
          </div>
       `;
    }
-
    /**
     * Build array of bests scores in order
     * @param {{name: string, score: number}[]} bestsScores
@@ -184,9 +178,6 @@ class Utils extends LocalStorage {
       container.innerHTML = lines;
       parent.appendChild(container);
    }
-
-   sortDecroissant(arr) {}
-
    /**
     * Create score and apples bubbles
     * @param {string} pathApple
