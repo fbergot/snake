@@ -54,7 +54,7 @@ class Snake extends Canvas {
    }
 
    /**
-    * Painting the snake
+    * Draw the snake
     * @memberof Snake
     */
    updateSnake() {
@@ -74,7 +74,6 @@ class Snake extends Canvas {
     * @memberof Snake
     */
    createSnake() {
-      this.updateSnake();
       // check if the snake hits the food
       if (this.oldHead.x === this.food.x && this.oldHead.y === this.food.y) {
          this.updateAfterFoodCollision();
@@ -90,6 +89,7 @@ class Snake extends Canvas {
          return;
       }
       this.snake.unshift(this.newHead);
+      this.updateSnake();
    }
 
    /**

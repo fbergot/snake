@@ -32,20 +32,20 @@ class Utils extends LocalStorage {
                 </div>
             `;
       }
-      // create external box
-      const div = document.createElement("div");
+      // creation external box
+      const container = document.createElement("div");
       options.classContainerPopup.forEach((className) => {
-         div.classList.add(className);
+         container.classList.add(className);
       });
-      // create input
-      div.innerHTML = `
+      // input & button
+      container.innerHTML = `
             <p>${options.content}</p>
             ${inputOrNot}
             <div class='contButton'>
                <button disabled class='${options.classForButton}'>${options.contentButton}</button>
             </div>
        `;
-      parent.appendChild(div);
+      parent.appendChild(container);
    }
    /**
     * Build speed message
@@ -55,18 +55,18 @@ class Utils extends LocalStorage {
     */
    buildSpeedNotif(parent, message) {
       let already;
-      let speedWindow;
+      let speedAnimWindow;
       if (!already) {
          (() => {
-            speedWindow = document.createElement("div");
-            speedWindow.classList.add("speedNotif");
-            speedWindow.innerHTML = `<p>${message}</p>`;
+            speedAnimWindow = document.createElement("div");
+            speedAnimWindow.classList.add("speedNotif");
+            speedAnimWindow.innerHTML = `<p>${message}</p>`;
             already = true;
          })();
       }
-      parent.appendChild(speedWindow);
+      parent.appendChild(speedAnimWindow);
       window.setTimeout(() => {
-         speedWindow.remove();
+         speedAnimWindow.remove();
       }, 1200);
    }
    /**
@@ -79,9 +79,11 @@ class Utils extends LocalStorage {
    addEvListener(target, typeEvent, callback) {
       this.$(target).addEventListener(typeEvent, callback);
    }
+
    /**
-    *
-    * Display game data (speed, score)
+    * Display score and foods in bubbles
+    * @param {number} apples
+    * @param {number} score
     * @memberof Utils
     */
    displayScoreAndFood(apples, score) {
@@ -89,6 +91,7 @@ class Utils extends LocalStorage {
       this.$("#apples").textContent = apples;
    }
    /**
+    * Give old score of current player
     * @param {string} nameOfPlayer
     * @memberof Utils
     */
