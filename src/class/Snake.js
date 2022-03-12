@@ -8,7 +8,7 @@ class Snake extends Canvas {
       this.i;
       this.headImg;
       this.direction = "RIGHT";
-      this.snake = startingSnakeBuilder(7, 5, 15, this.canvasBox);
+      this.snake = startingSnakeBuilder(7, 5, 10, this.canvasBox);
       this.newHead;
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));

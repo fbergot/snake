@@ -1,32 +1,45 @@
 import Utils from "./Utils";
 
 class SpeedManager {
-   constructor(nForTrigger) {
+   constructor(nForTrigger, speedsLoopObject) {
       this.utils = new Utils();
-      this.speeds = new Map([
-         [1, 100],
-         [2, 95],
-         [3, 90],
-         [4, 83],
-         [5, 70],
-      ]);
+      this.speeds = new Map(speedsLoopObject);
       this.selector = 1;
       this.trigger = nForTrigger;
+      this.triggerCount = 1;
    }
    /**
     * Increment speed of snake
+    * @param {number} totalFoods
     * @memberof Game
     */
    incrementSpeed(totalFoods) {
       if (totalFoods % this.trigger === 0) {
-         if (this.selector < this.speeds.size) {
-            ++this.selector;
+         if (this.selector < this.gearBox) {
             this.utils.buildSpeedNotif(document.body, "Speed up !");
-         } else {
-            this.utils.buildSpeedNotif(document.body, "Speed Max !");
+            ++this.triggerCount;
+            ++this.selector;
+            return 1;
+         } else if (this.selector === this.gearBox) {
+            if (this.triggerCount > this.gearBox) {
+               return "MAX";
+            } else {
+               ++this.triggerCount;
+               this.utils.buildSpeedNotif(document.body, "Speed Max !");
+               return 2;
+            }
          }
-         return true;
       }
+      return null;
+   }
+
+   /**
+    * Get a size of Map (speeds)
+    * @readonly
+    * @memberof SpeedManager
+    */
+   get gearBox() {
+      return this.speeds.size;
    }
    /**
     * Set a selector for indexed Map speeds
@@ -44,4 +57,10 @@ class SpeedManager {
       return this.speeds.get(this.selector);
    }
 }
-export default new SpeedManager(10);
+export default new SpeedManager(2, [
+   [1, 120],
+   [2, 110],
+   [3, 100],
+   [4, 90],
+   [5, 80],
+]);

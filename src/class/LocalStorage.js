@@ -6,7 +6,7 @@ class LocalStorage {
     * @param {*} value
     * @memberof LocalStorage
     */
-   setItem(key, value) {
+   static setItem(key, value) {
       const jsonValue = JSON.stringify(value);
       window.localStorage.setItem(key, jsonValue);
    }
@@ -18,7 +18,7 @@ class LocalStorage {
     * @returns {any | null}
     * @memberof LocalStorage
     */
-   getItem(key) {
+   static getItem(key) {
       const jsonValue = window.localStorage.getItem(key);
       if (!jsonValue) return null;
       return JSON.parse(jsonValue);

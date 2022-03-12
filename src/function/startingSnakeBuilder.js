@@ -1,5 +1,4 @@
 /**
- *
  * Build snake
  * @param {number} x_start
  * @param {number} y_start
@@ -10,8 +9,8 @@
 function startingSnakeBuilder(x_start, y_start, lengthOfBodySnake, canvasBox) {
    const bodyOfSnake = [{ x: canvasBox * x_start, y: canvasBox * y_start }];
    let i;
-   for (i = 1; i <= lengthOfBodySnake; i++) {
-      bodyOfSnake.push({ x: canvasBox * --x_start, y: canvasBox * y_start });
+   for (i = 1, x_start--; i <= lengthOfBodySnake; i++) {
+      bodyOfSnake.push({ x: canvasBox * x_start, y: canvasBox * y_start });
    }
    return bodyOfSnake;
 }

@@ -2,6 +2,7 @@
    font-family: "Action_Man_Shaded";
    src: url("../font/Action_Man_Shaded.ttf");
 }
+
 @font-face {
    font-family: "Action_Man";
    src: url("../font/Action_Man.ttf");
@@ -143,7 +144,8 @@ main {
 }
 
 .alertMessageBut:disabled {
-   /* background: rgb(180, 93, 93); */
+   background: rgb(180, 93, 93);
+   filter: blur(0.08rem) opacity(0.8);
 }
 
 .alertMessageBut:hover {

@@ -96,7 +96,7 @@ class Utils extends LocalStorage {
     * @memberof Utils
     */
    getPlayerOldScore(nameOfPlayer) {
-      const oldScore = this.getItem(this.keyScore);
+      const oldScore = LocalStorage.getItem(this.keyScore);
       if (oldScore) {
          const playerScore = oldScore.filter((score) => {
             return score.name === nameOfPlayer;
@@ -120,12 +120,12 @@ class Utils extends LocalStorage {
          name: nameOfPlayer,
          score: score,
       };
-      const scoreTotal = this.getItem(this.keyScore);
+      const scoreTotal = LocalStorage.getItem(this.keyScore);
       // check if data exist
       if (!scoreTotal) {
          total_score_of_players = [];
          total_score_of_players.push(dataplayer);
-         this.setItem(this.keyScore, total_score_of_players);
+         LocalStorage.setItem(this.keyScore, total_score_of_players);
          return;
       }
       // if exist ..
@@ -141,11 +141,11 @@ class Utils extends LocalStorage {
             });
             // add new score
             total_score_without_scoreActualPlyer.push(oldScoreOfPlayer);
-            this.setItem(this.keyScore, total_score_without_scoreActualPlyer);
+            LocalStorage.setItem(this.keyScore, total_score_without_scoreActualPlyer);
          }
       } else {
          scoreTotal.push(dataplayer);
-         this.setItem(this.keyScore, scoreTotal);
+         LocalStorage.setItem(this.keyScore, scoreTotal);
       }
    }
    /**

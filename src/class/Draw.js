@@ -6,7 +6,6 @@ class Draw extends Utils {
    }
    /**
     * Draw rect in Canvas
-    * @static
     * @param {CanvasRenderingContext2D} ctx
     * @param {number} x
     * @param {number} y
@@ -19,6 +18,20 @@ class Draw extends Utils {
    drawRect(ctx, x, y, x_length, y_length, color) {
       ctx.fillStyle = color;
       ctx.fillRect(x, y, x_length, y_length);
+   }
+
+   /**
+    * Draw image on Canvas
+    * @param {CanvasRenderingContext2D} ctx
+    * @param {number} x
+    * @param {number} y
+    * @param {number} x_length
+    * @param {number} y_length
+    * @param {HTMLImageElement} img
+    * @memberof Draw
+    */
+   drawImg(ctx, x, y, x_length, y_length, img) {
+      ctx.drawImage(img, x, y, x_length, y_length);
    }
 }
 

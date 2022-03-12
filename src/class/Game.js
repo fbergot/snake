@@ -3,6 +3,8 @@ import GameState from "./state/GameState";
 import startingSnakeBuilder from "../function/startingSnakeBuilder";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
 import SpeedManager from "./SpeedManager";
+import Ennemies from "./Ennemy/Ennemies";
+import { imagesEnnemies } from "../function/imgBuilder";
 
 class Game extends Snake {
    constructor() {
@@ -13,9 +15,10 @@ class Game extends Snake {
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
+      this.ennenies = new Ennemies(imagesEnnemies, this.ctx, this.canvas);
    }
    /**
-    * Random food coords
+    * Random coords
     * @returns {{x: number, y: number}}
     * @memberof Snake
     */
@@ -27,19 +30,39 @@ class Game extends Snake {
          y: Math.floor(Math.random() * yConv) * this.canvasBox,
       };
    }
+
+   /**
+    *
+    *
+    * @returns
+    * @memberof Game
+    */
+   gameEventsManager() {
+      const state = SpeedManager.incrementSpeed(this.totalFood);
+      if (state) {
+         switch (state) {
+            case 1:
+               this.sounds.eatFood.play();
+               this.sounds.accSpeed.play();
+               break;
+            case 2:
+               this.sounds.accSpeed.play();
+               break;
+            case "MAX":
+               this.sounds.bossSound.play();
+         }
+      }
+      return state;
+   }
    /**
     * Update after food collision (score, speed, food coords...)
     * @memberof Game
     */
    updateAfterFoodCollision() {
-      this.sounds.eatFood.play();
       this.score += this.incScoreNumb;
       this.food = this.randomCoords();
-      // update
       this.displayScoreAndFood(++this.totalFood, this.score);
-      if (SpeedManager.incrementSpeed(this.totalFood)) {
-         this.sounds.accSpeed.play();
-      }
+      this.gameEventsManager() === "MAX" ? null : this.sounds.eatFood.play();
       this.addNewPlayerScore(this.score, this.playerName);
    }
    /**
@@ -79,11 +102,12 @@ class Game extends Snake {
          },
          this.mainHTML
       );
-      this.addEvListener("input", "change", (e) => {
-         if (e.target.value != "") {
+      this.addEvListener("input", "input", (e) => {
+         if (e.target.value.length >= 3) {
             this.$(".alertMessageBut").removeAttribute("disabled");
-         } else {
-            this.$(".alertMessageBut").setAttribute("disabled", true);
+         }
+         if (e.target.value.length < 3) {
+            this.$(".alertMessageBut").setAttribute("disabled", "true");
          }
       });
       this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
@@ -102,7 +126,7 @@ class Game extends Snake {
       this.score = 0;
       this.totalFood = 0;
       this.direction = "RIGHT";
-      this.snake = startingSnakeBuilder(7, 5, 15, this.canvasBox);
+      this.snake = startingSnakeBuilder(7, 5, 10, this.canvasBox);
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
       this.food = this.randomCoords();
@@ -150,6 +174,7 @@ class Game extends Snake {
             this.timer = null;
             return;
          }
+
          if (!this.timer) {
             this.timer = window.setTimeout(draw, SpeedManager.currentSpeed);
          } else {
