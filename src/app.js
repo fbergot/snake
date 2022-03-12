@@ -9,5 +9,3 @@ import { imagesEnnemies } from "./function/imgBuilder";
 const game = new (GameAssetsDecorator(Game, { images, sounds }))();
 
 game.start();
-
-new Ennemies(imagesEnnemies);

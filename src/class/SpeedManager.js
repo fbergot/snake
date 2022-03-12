@@ -11,6 +11,7 @@ class SpeedManager {
    /**
     * Increment speed of snake
     * @param {number} totalFoods
+    * @return {number | string | null}
     * @memberof Game
     */
    incrementSpeed(totalFoods) {
@@ -49,7 +50,7 @@ class SpeedManager {
       this.selector = selector;
    }
    /**
-    * Get a current speed for loop (in ms)
+    * Get a current speed for loop (setTimeout in ms in renderLoop())
     * @readonly
     * @memberof SpeedManager
     */
@@ -57,7 +58,7 @@ class SpeedManager {
       return this.speeds.get(this.selector);
    }
 }
-export default new SpeedManager(2, [
+export default new SpeedManager(1, [
    [1, 120],
    [2, 110],
    [3, 100],

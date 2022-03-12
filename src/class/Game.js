@@ -15,7 +15,7 @@ class Game extends Snake {
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
-      this.ennenies = new Ennemies(imagesEnnemies, this.ctx, this.canvas);
+      this.ennemies = new Ennemies(imagesEnnemies, this);
    }
    /**
     * Random coords
@@ -32,9 +32,8 @@ class Game extends Snake {
    }
 
    /**
-    *
-    *
-    * @returns
+    * Manage the events after snake eat food
+    * @returns {string | number | null}
     * @memberof Game
     */
    gameEventsManager() {
@@ -50,6 +49,7 @@ class Game extends Snake {
                break;
             case "MAX":
                this.sounds.bossSound.play();
+               this.ennemies.displayEnnemy = true;
          }
       }
       return state;
@@ -153,6 +153,19 @@ class Game extends Snake {
       // render loop start
       this.renderLoop();
    }
+
+   updateRenderLoop() {
+      if (GameState.currentStateOfGame === "end") {
+         this.end();
+         window.clearTimeout(this.timer);
+         this.timer = null;
+         return true;
+      }
+
+      if (this.ennemies.displayEnnemy) {
+         this.ennemies.draw(this.canvasBox);
+      }
+   }
    /**
     * Render Game loop
     * @memberof Game
@@ -168,13 +181,7 @@ class Game extends Snake {
             this.canvasBox
          );
          this.createSnake();
-         if (GameState.currentStateOfGame === "end") {
-            this.end();
-            window.clearTimeout(this.timer);
-            this.timer = null;
-            return;
-         }
-
+         if (this.updateRenderLoop()) return;
          if (!this.timer) {
             this.timer = window.setTimeout(draw, SpeedManager.currentSpeed);
          } else {
