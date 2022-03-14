@@ -208,19 +208,33 @@ main {
    filter: blur(0.3rem);
    opacity: 0.5;
 }
-
-/* ------------------------------ */
-
+/* ----------------------------Score */
 .container_scores {
    text-align: center;
-   background-color: #799fbe;
-   margin-top: 2rem;
-   width: 400px;
+   background-color: #48a72b;
+   margin-top: 1.5rem;
+   width: 100%;
    border-radius: 10px;
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
+   border: 2px solid var(--background);
+}
+.headingRanking {
+   color: #fff;
+   font-size: 1.7rem;
+   padding-bottom: 0.5rem;
+}
+
+.result_row {
+   color: #fff;
+}
+.result_row > td {
+   /* border: 1px solid white; */
+   padding: 0.2rem;
+   width: 33%;
+   font-size: 1.1rem;
 }
 
 /* ------------------------- container bubble (score, speed, apple X) */

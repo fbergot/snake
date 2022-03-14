@@ -3,6 +3,7 @@ import GameState from "./state/GameState";
 import startingSnakeBuilder from "../function/startingSnakeBuilder";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
 import SpeedManager from "./SpeedManager";
+import LocalStorage from "./LocalStorage";
 
 class Game extends Snake {
    constructor() {
@@ -33,7 +34,7 @@ class Game extends Snake {
     * @returns {string | number | null}
     * @memberof Game
     */
-   gameEventsManager() {
+   gameEvents() {
       const state = SpeedManager.incrementSpeed(this.totalFood);
       if (state) {
          this.sounds.eatFood.play();
@@ -49,20 +50,20 @@ class Game extends Snake {
       this.score += this.incScoreNumb;
       this.food = this.randomCoords();
       this.displayScoreAndFood(++this.totalFood, this.score);
-      this.gameEventsManager() ? null : this.sounds.eatFood.play();
-      this.addNewPlayerScore(this.score, this.playerName);
+      this.gameEvents() ? null : this.sounds.eatFood.play();
    }
    /**
     * When player lose
     * @memberof Game
     */
    end() {
+      if (this.score !== 0) this.addNewPlayerScore(this.score, this.playerName);
       this.sounds.gameOver.play();
       this.windowBuildAndDisplay(
          {
-            content: `Perdu ${this.playerName} !
-                <p>Votre score: ${this.score} points</p>
-               `,
+            content: `<p>Perdu ${this.playerName} !</p>
+                      <p>Votre score: ${this.score} points</p>
+                     `,
             contentButton: "Rejouer",
             contentLabel: null,
             classContainerPopup: ["alertEndMessage", "alertMessage"],
@@ -73,6 +74,7 @@ class Game extends Snake {
       this.$(".genContainer").classList.add("blurBody");
       this.$(".endMessageBut").removeAttribute("disabled");
       this.addEvListener(".endMessageBut", "click", this.restart.bind(this));
+      this.buildBestsScores(LocalStorage.getItem("snakeScore"), this.$(".alertEndMessage"));
    }
    /**
     * Game start, display alert box for name and start loop after
@@ -90,16 +92,14 @@ class Game extends Snake {
          this.mainHTML
       );
       this.addEvListener("input", "input", (e) => {
-         if (e.target.value.length >= 3) {
+         if (e.target.value.length >= 2) {
             this.$(".alertMessageBut").removeAttribute("disabled");
          }
-         if (e.target.value.length < 3) {
+         if (e.target.value.length < 2) {
             this.$(".alertMessageBut").setAttribute("disabled", "true");
          }
       });
       this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
-      // to do ==> manage players scores
-      // this.builBestsScores(this.getItem("snakeScore"), this.mainHTML);
    }
    /**
     * Restart game
@@ -128,7 +128,7 @@ class Game extends Snake {
     */
    initGame() {
       const playerName = this.$("#name").value;
-      this.playerName = playerName;
+      this.playerName = playerName.toLowerCase();
       // remove start window
       this.$(".alertMessage").remove();
       this.canvas.style.display = "block";
@@ -141,6 +141,11 @@ class Game extends Snake {
       this.renderLoop();
    }
 
+   /**
+    * Stop the render loop
+    * @returns
+    * @memberof Game
+    */
    stopRenderLoop() {
       if (GameState.currentStateOfGame === "end") {
          this.end();

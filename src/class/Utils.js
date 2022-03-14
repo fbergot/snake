@@ -1,10 +1,8 @@
 import LocalStorage from "./LocalStorage";
 import Food from "../assets/picture/food.png";
-import soundBuilder from "../function/soundBuilder";
 
-class Utils extends LocalStorage {
+class Utils {
    constructor() {
-      super();
       this.keyScore = "snakeScore";
    }
    /**
@@ -39,7 +37,7 @@ class Utils extends LocalStorage {
       });
       // input & button
       container.innerHTML = `
-            <p>${options.content}</p>
+            ${options.content}
             ${inputOrNot}
             <div class='contButton'>
                <button disabled class='${options.classForButton}'>${options.contentButton}</button>
@@ -116,7 +114,7 @@ class Utils extends LocalStorage {
    addNewPlayerScore(score, nameOfPlayer) {
       let total_score_of_players;
       let total_score_without_scoreActualPlyer;
-      const dataplayer = {
+      const dataPlayer = {
          name: nameOfPlayer,
          score: score,
       };
@@ -124,7 +122,7 @@ class Utils extends LocalStorage {
       // check if data exist
       if (!scoreTotal) {
          total_score_of_players = [];
-         total_score_of_players.push(dataplayer);
+         total_score_of_players.push(dataPlayer);
          LocalStorage.setItem(this.keyScore, total_score_of_players);
          return;
       }
@@ -144,7 +142,7 @@ class Utils extends LocalStorage {
             LocalStorage.setItem(this.keyScore, total_score_without_scoreActualPlyer);
          }
       } else {
-         scoreTotal.push(dataplayer);
+         scoreTotal.push(dataPlayer);
          LocalStorage.setItem(this.keyScore, scoreTotal);
       }
    }
@@ -155,11 +153,11 @@ class Utils extends LocalStorage {
     */
    createLine(data, rating) {
       return `
-         <div class='result_row'>
-            <p>${rating}</p>
-            <p>${data.name}</p>
-            <p>${data.score}</p>
-         </div>
+         <tr class='result_row'>
+            <td>${rating}</td>
+            <td>${data.name}</td>
+            <td>${data.score}</td>
+         </tr>
       `;
    }
    /**
@@ -168,17 +166,29 @@ class Utils extends LocalStorage {
     * @param {HTMLElement} parent
     * @memberof Utils
     */
-   builBestsScores(bestsScores, parent) {
-      const sortedScores = bestsScores.sort((a, b) => a - b);
+   buildBestsScores(bestsScores, parent) {
+      const sortedScores = bestsScores.sort((a, b) => b.score - a.score);
+
       const container = document.createElement("div");
       container.classList.add("container_scores");
-      let lines = "<h2>Classement</h2>";
+
+      const headingTitle = document.createElement("h2");
+      headingTitle.textContent = "Meilleurs scores";
+      headingTitle.classList.add("headingRanking");
+      container.appendChild(headingTitle);
+
+      const rankingTable = document.createElement("table");
+
+      let lines = "";
       // create each line
       sortedScores.forEach((scoreData, index) => {
-         lines += this.createLine(scoreData, index + 1);
+         if (index <= 2) {
+            lines += this.createLine(scoreData, index + 1);
+         }
       });
 
-      container.innerHTML = lines;
+      rankingTable.innerHTML = lines;
+      container.appendChild(rankingTable);
       parent.appendChild(container);
    }
    /**
