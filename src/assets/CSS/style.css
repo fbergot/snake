@@ -130,7 +130,7 @@ main {
    display: flex;
    justify-content: center;
    padding: 0.4rem;
-   margin-top: 0.3rem;
+   margin-top: 0.8rem;
 }
 
 .alertMessageBut {
@@ -145,7 +145,7 @@ main {
 
 .alertMessageBut:disabled {
    background: rgb(180, 93, 93);
-   filter: blur(0.08rem) opacity(0.8);
+   filter: blur(0.08rem) opacity(0.6);
 }
 
 .alertMessageBut:hover {
@@ -176,7 +176,7 @@ main {
    font-size: 2rem;
 }
 
-/* popup end & blur body */
+/* popup end game & blur body */
 .alertEndMessage {
    padding: 0.8rem;
    position: absolute;
@@ -221,6 +221,7 @@ main {
    justify-content: center;
    border: 2px solid var(--background);
 }
+
 .headingRanking {
    color: #fff;
    font-size: 1.7rem;
@@ -231,10 +232,13 @@ main {
    color: #fff;
 }
 .result_row > td {
-   /* border: 1px solid white; */
    padding: 0.2rem;
    width: 33%;
    font-size: 1.1rem;
+}
+
+.selected {
+   font-weight: bold;
 }
 
 /* ------------------------- container bubble (score, speed, apple X) */

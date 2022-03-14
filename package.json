@@ -6,7 +6,8 @@
    "author": "florian.bergot564@gmail.com",
    "license": "MIT",
    "scripts": {
-      "build_w": "webpack --watch"
+      "build_w": "webpack --watch",
+      "build": "webpack"
    },
    "dependencies": {
       "prettier": "^2.5.1",

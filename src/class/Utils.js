@@ -151,9 +151,9 @@ class Utils {
     * @param {{name: string, score: number}} data
     * @memberof Utils
     */
-   createLine(data, rating) {
+   createLine(data, rating, playerName) {
       return `
-         <tr class='result_row'>
+         <tr class='result_row ${playerName === data.name ? "selected" : ""}'>
             <td>${rating}</td>
             <td>${data.name}</td>
             <td>${data.score}</td>
@@ -166,7 +166,7 @@ class Utils {
     * @param {HTMLElement} parent
     * @memberof Utils
     */
-   buildBestsScores(bestsScores, parent) {
+   buildBestsScores(bestsScores, parent, playerName) {
       const sortedScores = bestsScores.sort((a, b) => b.score - a.score);
 
       const container = document.createElement("div");
@@ -180,10 +180,10 @@ class Utils {
       const rankingTable = document.createElement("table");
 
       let lines = "";
-      // create each line
+      // create each line of table
       sortedScores.forEach((scoreData, index) => {
          if (index <= 2) {
-            lines += this.createLine(scoreData, index + 1);
+            lines += this.createLine(scoreData, index + 1, playerName);
          }
       });
 

@@ -58,10 +58,11 @@ class SpeedManager {
       return this.speeds.get(this.selector);
    }
 }
-export default new SpeedManager(2, [
+export default new SpeedManager(10, [
    [1, 120],
    [2, 110],
    [3, 100],
    [4, 90],
    [5, 80],
+   [6, 70],
 ]);

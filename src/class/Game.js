@@ -74,7 +74,11 @@ class Game extends Snake {
       this.$(".genContainer").classList.add("blurBody");
       this.$(".endMessageBut").removeAttribute("disabled");
       this.addEvListener(".endMessageBut", "click", this.restart.bind(this));
-      this.buildBestsScores(LocalStorage.getItem("snakeScore"), this.$(".alertEndMessage"));
+      this.buildBestsScores(
+         LocalStorage.getItem("snakeScore"),
+         this.$(".alertEndMessage"),
+         this.playerName
+      );
    }
    /**
     * Game start, display alert box for name and start loop after
