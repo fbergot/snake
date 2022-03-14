@@ -16,7 +16,7 @@
   \********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("\n\n__webpack_require__(/*! ./assets/CSS/style.css */ \"./src/assets/CSS/style.css\");\n\nvar _Game = __webpack_require__(/*! ./class/Game */ \"./src/class/Game.js\");\n\nvar _Game2 = _interopRequireDefault(_Game);\n\nvar _imgBuilder = __webpack_require__(/*! ./function/imgBuilder */ \"./src/function/imgBuilder.js\");\n\nvar _soundBuilder = __webpack_require__(/*! ./function/soundBuilder */ \"./src/function/soundBuilder.js\");\n\nvar _game_assets_dec = __webpack_require__(/*! ./class/decorator/game_assets_dec */ \"./src/class/decorator/game_assets_dec.js\");\n\nvar _game_assets_dec2 = _interopRequireDefault(_game_assets_dec);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar game = new ((0, _game_assets_dec2.default)(_Game2.default, { images: _imgBuilder.images, sounds: _soundBuilder.sounds }))();\n\ngame.start();\n\n//# sourceURL=webpack://snake/./src/app.js?");
+eval("\n\n__webpack_require__(/*! ./assets/CSS/style.css */ \"./src/assets/CSS/style.css\");\n\nvar _Game = __webpack_require__(/*! ./class/Game */ \"./src/class/Game.js\");\n\nvar _Game2 = _interopRequireDefault(_Game);\n\nvar _imgBuilder = __webpack_require__(/*! ./function/imgBuilder */ \"./src/function/imgBuilder.js\");\n\nvar _soundBuilder = __webpack_require__(/*! ./function/soundBuilder */ \"./src/function/soundBuilder.js\");\n\nvar _game_assets_dec = __webpack_require__(/*! ./function/decorator/game_assets_dec */ \"./src/function/decorator/game_assets_dec.js\");\n\nvar _game_assets_dec2 = _interopRequireDefault(_game_assets_dec);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar game = new ((0, _game_assets_dec2.default)(_Game2.default, { images: _imgBuilder.images, sounds: _soundBuilder.sounds }))();\n\ngame.start();\n\n//# sourceURL=webpack://snake/./src/app.js?");
 
 /***/ }),
 
@@ -90,16 +90,6 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n   value: true\n}))
 
 /***/ }),
 
-/***/ "./src/class/decorator/game_assets_dec.js":
-/*!************************************************!*\
-  !*** ./src/class/decorator/game_assets_dec.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n  value: true\n}));\n/**\r\n * Add sounds and images in Game proto\r\n * @param {Game} game\r\n * @param {{sounds: {gameOver: HTMLAudioElement, eatFood: HTMLAudioElement}, images: {\r\n *  snake: {head: {bottom: HTMLImageElement, top: HTMLImageElement, left: HTMLImageElement,\r\n * right: HTMLImageElement}, body: HTMLImageElement}, food: HTMLImageElement    }\r\n * }} assets\r\n * @returns {Game}\r\n */\nfunction game_assets_dec(game, _ref) {\n  var sounds = _ref.sounds,\n      images = _ref.images;\n\n  game.prototype.sounds = sounds;\n  game.prototype.images = images;\n  return game;\n}\n\nexports[\"default\"] = game_assets_dec;\n\n//# sourceURL=webpack://snake/./src/class/decorator/game_assets_dec.js?");
-
-/***/ }),
-
 /***/ "./src/class/state/GameState.js":
 /*!**************************************!*\
   !*** ./src/class/state/GameState.js ***!
@@ -107,6 +97,16 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n  value: true\n}));
 /***/ ((__unused_webpack_module, exports) => {
 
 eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n   value: true\n}));\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nvar GameState = function () {\n   function GameState() {\n      _classCallCheck(this, GameState);\n\n      this.states = [\"inProgress\", \"end\"];\n      this.currentState = this.states[0];\n   }\n\n   /**\r\n    * Handle the state of game\r\n    * @returns void\r\n    * @memberof GameState\r\n    */\n\n\n   _createClass(GameState, [{\n      key: \"handleState\",\n      value: function handleState() {\n         var _this = this;\n\n         var stateLength = this.states.length;\n         var currentIndexOfState = this.states.findIndex(function (state) {\n            return state === _this.currentState;\n         });\n         if (currentIndexOfState < stateLength - 1) {\n            this.currentState = this.states[currentIndexOfState + 1];\n            return;\n         }\n         this.currentState = this.states[0];\n      }\n\n      /**\r\n       * Get current state of game\r\n       * @readonly\r\n       * @return {string}\r\n       * @memberof GameState\r\n       */\n\n   }, {\n      key: \"currentStateOfGame\",\n      get: function get() {\n         return this.currentState;\n      }\n   }]);\n\n   return GameState;\n}();\n\nexports[\"default\"] = new GameState();\n\n//# sourceURL=webpack://snake/./src/class/state/GameState.js?");
+
+/***/ }),
+
+/***/ "./src/function/decorator/game_assets_dec.js":
+/*!***************************************************!*\
+  !*** ./src/function/decorator/game_assets_dec.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+eval("\n\nObject.defineProperty(exports, \"__esModule\", ({\n  value: true\n}));\n/**\r\n * Add sounds and images in Game proto\r\n * @param {Game} game\r\n * @param {{sounds: {gameOver: HTMLAudioElement, eatFood: HTMLAudioElement}, images: {\r\n *  snake: {head: {bottom: HTMLImageElement, top: HTMLImageElement, left: HTMLImageElement,\r\n * right: HTMLImageElement}, body: HTMLImageElement}, food: HTMLImageElement    }\r\n * }} assets\r\n * @returns {Game}\r\n */\nfunction game_assets_dec(game, _ref) {\n  var sounds = _ref.sounds,\n      images = _ref.images;\n\n  game.prototype.sounds = sounds;\n  game.prototype.images = images;\n  return game;\n}\n\nexports[\"default\"] = game_assets_dec;\n\n//# sourceURL=webpack://snake/./src/function/decorator/game_assets_dec.js?");
 
 /***/ }),
 
