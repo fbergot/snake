@@ -4,8 +4,6 @@ import HeadLeft from "../assets/picture/headLeft.png";
 import HeadRight from "../assets/picture/headRight.png";
 import Food from "../assets/picture/food.png";
 import BodyX from "../assets/picture/bodyX.png";
-import Zombie from "../assets/picture/zombie.png";
-import Storm from "../assets/picture/storm.png";
 
 /**
  * Build new image
@@ -29,11 +27,4 @@ export const images = {
       body: imgBuilder(BodyX),
    },
    food: imgBuilder(Food),
-};
-
-// for Ennemy
-
-export const imagesEnnemies = {
-   zombie: imgBuilder(Zombie),
-   storm: imgBuilder(Storm),
 };

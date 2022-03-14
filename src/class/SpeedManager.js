@@ -16,18 +16,18 @@ class SpeedManager {
     */
    incrementSpeed(totalFoods) {
       if (totalFoods % this.trigger === 0) {
-         if (this.selector < this.gearBox) {
+         if (this.selector < this.gearBoxSize) {
             this.utils.buildSpeedNotif(document.body, "Speed up !");
             ++this.triggerCount;
             ++this.selector;
-            return 1;
-         } else if (this.selector === this.gearBox) {
-            if (this.triggerCount > this.gearBox) {
-               return "MAX";
+            return true;
+         } else if (this.selector === this.gearBoxSize) {
+            if (this.triggerCount > this.gearBoxSize) {
+               return false;
             } else {
                ++this.triggerCount;
                this.utils.buildSpeedNotif(document.body, "Speed Max !");
-               return 2;
+               return true;
             }
          }
       }
@@ -39,7 +39,7 @@ class SpeedManager {
     * @readonly
     * @memberof SpeedManager
     */
-   get gearBox() {
+   get gearBoxSize() {
       return this.speeds.size;
    }
    /**
@@ -58,7 +58,7 @@ class SpeedManager {
       return this.speeds.get(this.selector);
    }
 }
-export default new SpeedManager(1, [
+export default new SpeedManager(2, [
    [1, 120],
    [2, 110],
    [3, 100],

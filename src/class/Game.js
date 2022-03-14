@@ -3,8 +3,6 @@ import GameState from "./state/GameState";
 import startingSnakeBuilder from "../function/startingSnakeBuilder";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
 import SpeedManager from "./SpeedManager";
-import Ennemies from "./Ennemy/Ennemies";
-import { imagesEnnemies } from "../function/imgBuilder";
 
 class Game extends Snake {
    constructor() {
@@ -15,7 +13,6 @@ class Game extends Snake {
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
-      this.ennemies = new Ennemies(imagesEnnemies, this);
    }
    /**
     * Random coords
@@ -39,18 +36,8 @@ class Game extends Snake {
    gameEventsManager() {
       const state = SpeedManager.incrementSpeed(this.totalFood);
       if (state) {
-         switch (state) {
-            case 1:
-               this.sounds.eatFood.play();
-               this.sounds.accSpeed.play();
-               break;
-            case 2:
-               this.sounds.accSpeed.play();
-               break;
-            case "MAX":
-               this.sounds.bossSound.play();
-               this.ennemies.displayEnnemy = true;
-         }
+         this.sounds.eatFood.play();
+         this.sounds.accSpeed.play();
       }
       return state;
    }
@@ -62,7 +49,7 @@ class Game extends Snake {
       this.score += this.incScoreNumb;
       this.food = this.randomCoords();
       this.displayScoreAndFood(++this.totalFood, this.score);
-      this.gameEventsManager() === "MAX" ? null : this.sounds.eatFood.play();
+      this.gameEventsManager() ? null : this.sounds.eatFood.play();
       this.addNewPlayerScore(this.score, this.playerName);
    }
    /**
@@ -154,16 +141,12 @@ class Game extends Snake {
       this.renderLoop();
    }
 
-   updateRenderLoop() {
+   stopRenderLoop() {
       if (GameState.currentStateOfGame === "end") {
          this.end();
          window.clearTimeout(this.timer);
          this.timer = null;
          return true;
-      }
-
-      if (this.ennemies.displayEnnemy) {
-         this.ennemies.draw(this.canvasBox);
       }
    }
    /**
@@ -181,7 +164,7 @@ class Game extends Snake {
             this.canvasBox
          );
          this.createSnake();
-         if (this.updateRenderLoop()) return;
+         if (this.stopRenderLoop()) return;
          if (!this.timer) {
             this.timer = window.setTimeout(draw, SpeedManager.currentSpeed);
          } else {
