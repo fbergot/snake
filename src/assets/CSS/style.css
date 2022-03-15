@@ -3,11 +3,6 @@
    src: url("../font/Action_Man_Shaded.ttf");
 }
 
-@font-face {
-   font-family: "Action_Man";
-   src: url("../font/Action_Man.ttf");
-}
-
 :root {
    --background: #5db139;
    --secondary: #ffda51;
