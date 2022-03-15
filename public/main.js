@@ -16,7 +16,7 @@
   \********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("\n\n__webpack_require__(/*! ./assets/CSS/style.css */ \"./src/assets/CSS/style.css\");\n\nvar _Game = __webpack_require__(/*! ./class/Game */ \"./src/class/Game.js\");\n\nvar _Game2 = _interopRequireDefault(_Game);\n\nvar _imgBuilder = __webpack_require__(/*! ./function/imgBuilder */ \"./src/function/imgBuilder.js\");\n\nvar _soundBuilder = __webpack_require__(/*! ./function/soundBuilder */ \"./src/function/soundBuilder.js\");\n\nvar _game_assets_dec = __webpack_require__(/*! ./function/decorator/game_assets_dec */ \"./src/function/decorator/game_assets_dec.js\");\n\nvar _game_assets_dec2 = _interopRequireDefault(_game_assets_dec);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nif (window.innerWidth > 1200) {\n   var game = new ((0, _game_assets_dec2.default)(_Game2.default, { images: _imgBuilder.images, sounds: _soundBuilder.sounds }))();\n   game.start();\n} else {\n   alert(\"Ce jeu doit être lancé sur un desktop (>1200px) car nous avons besoin des touches de direction pour jouer !\");\n}\n\n//# sourceURL=webpack://snake/./src/app.js?");
+eval("\n\n__webpack_require__(/*! ./assets/CSS/style.css */ \"./src/assets/CSS/style.css\");\n\nvar _Game = __webpack_require__(/*! ./class/Game */ \"./src/class/Game.js\");\n\nvar _Game2 = _interopRequireDefault(_Game);\n\nvar _imgBuilder = __webpack_require__(/*! ./function/imgBuilder */ \"./src/function/imgBuilder.js\");\n\nvar _soundBuilder = __webpack_require__(/*! ./function/soundBuilder */ \"./src/function/soundBuilder.js\");\n\nvar _game_assets_dec = __webpack_require__(/*! ./function/decorator/game_assets_dec */ \"./src/function/decorator/game_assets_dec.js\");\n\nvar _game_assets_dec2 = _interopRequireDefault(_game_assets_dec);\n\nvar _snakeCartoon = __webpack_require__(/*! ./assets/picture/snake-cartoon.png */ \"./src/assets/picture/snake-cartoon.png\");\n\nvar _snakeCartoon2 = _interopRequireDefault(_snakeCartoon);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar header = document.getElementById(\"header\");\nvar imgWidthSnake = \"<img src='\" + _snakeCartoon2.default + \"' alt=\\\"snake cartoon\\\"/>\";\n\nheader.innerHTML = imgWidthSnake;\n\nif (window.innerWidth > 1200) {\n   var game = new ((0, _game_assets_dec2.default)(_Game2.default, { images: _imgBuilder.images, sounds: _soundBuilder.sounds }))();\n   game.start();\n} else {\n   alert(\"Ce jeu doit être lancé sur un desktop (>1200px) car nous avons besoin des touches de direction pour jouer !\");\n}\n\n//# sourceURL=webpack://snake/./src/app.js?");
 
 /***/ }),
 
@@ -367,6 +367,16 @@ eval("module.exports = __webpack_require__.p + \"d7550ae72ce2d1fa1650.png\";\n\n
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("module.exports = __webpack_require__.p + \"34d8690088d9d98e2a41.png\";\n\n//# sourceURL=webpack://snake/./src/assets/picture/headTop.png?");
+
+/***/ }),
+
+/***/ "./src/assets/picture/snake-cartoon.png":
+/*!**********************************************!*\
+  !*** ./src/assets/picture/snake-cartoon.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"7c8849b79838e8d1d297.png\";\n\n//# sourceURL=webpack://snake/./src/assets/picture/snake-cartoon.png?");
 
 /***/ }),
 
