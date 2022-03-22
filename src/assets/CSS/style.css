@@ -139,8 +139,7 @@ main {
 }
 
 .alertMessageBut:disabled {
-   background: rgb(180, 93, 93);
-   filter: blur(0.08rem) opacity(0.6);
+   cursor: not-allowed;
 }
 
 .alertMessageBut:hover {
