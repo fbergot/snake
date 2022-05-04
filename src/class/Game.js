@@ -117,6 +117,9 @@ class Game extends Snake {
       // re-init snake properties
       this.score = 0;
       this.totalFood = 0;
+      if (this.pad) {
+         this.pad.direction = "RIGHT";
+      }
       this.direction = "RIGHT";
       this.snake = startingSnakeBuilder(1, 10, 10, this.canvasBox);
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
@@ -139,7 +142,7 @@ class Game extends Snake {
       this.canvas.style.display = "block";
       this.createBubbles(this.$(".genContainer"));
       this.displayCanvas();
-      if (window.innerWidth < 1200) {
+      if (window.innerWidth < 800) {
          this.pad = new PadManager(this.$(".genContainer"));
          this.pad.createPad();
       }

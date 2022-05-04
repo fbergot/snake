@@ -59,7 +59,7 @@ class Snake extends Canvas {
     */
    updateSnake() {
       for (this.i = 0; this.i < this.snake.length; this.i++) {
-         if (window.innerWidth > 1200) {
+         if (window.innerWidth > 800) {
             this.headSnake(this.direction);
          } else {
             this.direction = this.pad.currentDirection;
