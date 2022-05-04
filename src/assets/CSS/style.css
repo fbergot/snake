@@ -295,9 +295,8 @@ main {
 
 .pad {
    margin-top: 2rem;
-   /* border: #ffda51 solid 2px; */
-   width: 200px;
-   height: 100px;
+   width: 220px;
+   height: 110px;
    position: relative;
 }
 
@@ -307,8 +306,11 @@ main {
 #LEFT {
    padding: 8px 15px;
    border-radius: 50%;
-   border: none;
+   border: 5px solid var(--secondary);
    cursor: pointer;
+   color: #fff;
+   font-weight: 600;
+   background-color: transparent;
 }
 
 #UP {
@@ -336,6 +338,7 @@ main {
    position: absolute;
    top: 50%;
    right: 0;
+   padding: 8px 11px;
    transform: translateY(-50%);
 }
 
