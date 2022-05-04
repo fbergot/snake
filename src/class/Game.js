@@ -4,6 +4,7 @@ import startingSnakeBuilder from "../function/startingSnakeBuilder";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
 import SpeedManager from "./SpeedManager";
 import LocalStorage from "./LocalStorage";
+import PadManager from "./PadManager";
 
 class Game extends Snake {
    constructor() {
@@ -111,13 +112,13 @@ class Game extends Snake {
     */
    restart() {
       SpeedManager.selectorSpeed = 1;
-      this.$(".alertEndMessage").remove();
       this.$(".genContainer").classList.remove("blurBody");
+      this.$(".alertEndMessage").remove();
       // re-init snake properties
       this.score = 0;
       this.totalFood = 0;
       this.direction = "RIGHT";
-      this.snake = startingSnakeBuilder(7, 5, 10, this.canvasBox);
+      this.snake = startingSnakeBuilder(1, 10, 10, this.canvasBox);
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };
       this.food = this.randomCoords();
@@ -138,7 +139,12 @@ class Game extends Snake {
       this.canvas.style.display = "block";
       this.createBubbles(this.$(".genContainer"));
       this.displayCanvas();
+      if (window.innerWidth < 1200) {
+         this.pad = new PadManager(this.$(".genContainer"));
+         this.pad.createPad();
+      }
       this.$("header img").src = SnakeBorder;
+      this.$("header img").classList.add("imgResponsiveTel");
       document.body.classList.add("bodyJustify-center");
       this.oldPlayerScore = this.getPlayerOldScore(this.playerName) || 0;
       // render loop start

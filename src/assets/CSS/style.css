@@ -30,6 +30,10 @@ body {
    justify-content: center;
 }
 
+.imgResponsiveTel {
+   width: auto;
+}
+
 .genContainer {
    display: flex;
    flex-direction: column;
@@ -44,10 +48,13 @@ body {
 header {
    width: 400px;
    height: auto;
+   display: flex;
+   justify-content: center;
 }
 
 header > img {
    width: 100%;
+   object-fit: cover;
 }
 
 main {
@@ -172,6 +179,7 @@ main {
 
 /* popup end game & blur body */
 .alertEndMessage {
+   width: 90%;
    padding: 0.8rem;
    position: absolute;
 }
@@ -283,4 +291,56 @@ main {
    width: 30px;
    margin-left: 0.6rem;
    margin-top: 0.4rem;
+}
+
+.pad {
+   margin-top: 2rem;
+   /* border: #ffda51 solid 2px; */
+   width: 200px;
+   height: 100px;
+   position: relative;
+}
+
+#UP,
+#DOWN,
+#RIGHT,
+#LEFT {
+   padding: 2px 8px;
+}
+
+#UP {
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+}
+
+#DOWN {
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+}
+
+#LEFT {
+   position: absolute;
+   top: 50%;
+   left: 0;
+   transform: translateY(-50%);
+}
+
+#RIGHT {
+   position: absolute;
+   top: 50%;
+   right: 0;
+   transform: translateY(-50%);
+}
+
+@media screen and (max-width: 700px) {
+   .containerBubble {
+      width: 90%;
+   }
+   .alertMessage {
+      width: 300px;
+   }
 }

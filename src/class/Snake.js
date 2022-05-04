@@ -8,7 +8,7 @@ class Snake extends Canvas {
       this.i;
       this.headImg;
       this.direction = "RIGHT";
-      this.snake = startingSnakeBuilder(7, 5, 10, this.canvasBox);
+      this.snake = startingSnakeBuilder(1, 10, 10, this.canvasBox);
       this.newHead;
       this.oldHead = { x: this.snake[0].x, y: this.snake[0].y };
       this.addEvListener("html", "keydown", this.changeDirection.bind(this));
@@ -37,8 +37,8 @@ class Snake extends Canvas {
     * Assign good head img according to direction
     * @memberof Snake
     */
-   headSnake() {
-      switch (this.direction) {
+   headSnake(dir) {
+      switch (dir) {
          case "UP":
             this.headImg = this.images.snake.head.top;
             break;
@@ -59,7 +59,12 @@ class Snake extends Canvas {
     */
    updateSnake() {
       for (this.i = 0; this.i < this.snake.length; this.i++) {
-         this.headSnake();
+         if (window.innerWidth > 1200) {
+            this.headSnake(this.direction);
+         } else {
+            this.direction = this.pad.currentDirection;
+            this.headSnake(this.direction);
+         }
          this.ctx.drawImage(
             this.i === 0 ? this.headImg : this.images.snake.body,
             this.snake[this.i].x,
