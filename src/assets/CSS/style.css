@@ -296,7 +296,7 @@ main {
 .pad {
    margin-top: 2rem;
    width: 220px;
-   height: 110px;
+   height: 120px;
    position: relative;
 }
 
@@ -304,8 +304,11 @@ main {
 #DOWN,
 #RIGHT,
 #LEFT {
-   padding: 8px 15px;
-   border-radius: 50%;
+   width: 68px;
+   height: 50px;
+
+   /* border-radius: 2rem; */
+   padding: 5px 6px;
    border: 5px solid var(--secondary);
    cursor: pointer;
    color: #fff;
@@ -320,11 +323,19 @@ main {
    transform: translateX(-50%);
 }
 
+#UP img {
+   transform: rotate(-90deg);
+}
+
 #DOWN {
    position: absolute;
    bottom: 0;
    left: 50%;
    transform: translateX(-50%);
+}
+
+#DOWN img {
+   transform: rotate(-270deg);
 }
 
 #LEFT {
@@ -334,12 +345,25 @@ main {
    transform: translateY(-50%);
 }
 
+#LEFT img {
+   transform: rotate(-180deg);
+}
+
 #RIGHT {
    position: absolute;
    top: 50%;
    right: 0;
-   padding: 8px 11px;
+   /* padding: 22px 20px; */
    transform: translateY(-50%);
+}
+
+.pad img {
+   width: 1.2rem;
+   height: 1.2rem;
+   object-fit: cover;
+   color: #fff;
+   z-index: 1000;
+   /* background-color: #5db139; */
 }
 
 @media screen and (max-width: 800px) {

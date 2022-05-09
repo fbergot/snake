@@ -9,7 +9,7 @@ class PadManager {
       this.padButtons = [...document.querySelectorAll(".butPad")];
       this.padButtons.forEach((but) => {
          but.addEventListener("click", (e) =>
-            this.applyDirection(e.target.getAttribute("id")).bind(this)
+            this.applyDirection(e.target.getAttribute("id"))
          );
       });
    }
@@ -43,10 +43,10 @@ class PadManager {
       contPad.classList.add("cont-pad");
       const pad = `
          <div class='pad'>
-            <button class='butPad' id='UP'>Haut</button>
-            <button class='butPad' id='LEFT'>Left</button>
-            <button class='butPad' id='RIGHT'>Right</button>
-            <button class='butPad' id='DOWN'>Bas</button>
+            <button class='butPad' id='UP'>UP</button>
+            <button class='butPad' id='LEFT'>LEFT</button>
+            <button class='butPad' id='RIGHT'>RIGHT</button>
+            <button class='butPad' id='DOWN'>DOWN</button>
          </div>
       `;
       contPad.innerHTML = pad;

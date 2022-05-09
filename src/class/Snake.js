@@ -59,12 +59,7 @@ class Snake extends Canvas {
     */
    updateSnake() {
       for (this.i = 0; this.i < this.snake.length; this.i++) {
-         if (window.innerWidth > 800) {
-            this.headSnake(this.direction);
-         } else {
-            this.direction = this.pad.currentDirection;
-            this.headSnake(this.direction);
-         }
+         this.headSnake(this.direction);
          this.ctx.drawImage(
             this.i === 0 ? this.headImg : this.images.snake.body,
             this.snake[this.i].x,
@@ -84,6 +79,9 @@ class Snake extends Canvas {
          this.updateAfterFoodCollision();
       } else {
          this.snake.pop();
+      }
+      if (window.innerWidth < 800) {
+         this.direction = this.pad.currentDirection;
       }
       this.applyDirection();
       this.newHead = { x: this.oldHead.x, y: this.oldHead.y };

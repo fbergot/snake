@@ -53,34 +53,7 @@ class Game extends Snake {
       this.displayScoreAndFood(++this.totalFood, this.score);
       this.gameEvents() ? null : this.sounds.eatFood.play();
    }
-   /**
-    * When player lose
-    * @memberof Game
-    */
-   end() {
-      if (this.score !== 0) this.addNewPlayerScore(this.score, this.playerName);
-      this.sounds.gameOver.play();
-      this.windowBuildAndDisplay(
-         {
-            content: `<p>Perdu ${this.playerName} !</p>
-                      <p>Votre score: ${this.score} points</p>
-                     `,
-            contentButton: "Rejouer",
-            contentLabel: null,
-            classContainerPopup: ["alertEndMessage", "alertMessage"],
-            classForButton: "endMessageBut",
-         },
-         document.body
-      );
-      this.$(".genContainer").classList.add("blurBody");
-      this.$(".endMessageBut").removeAttribute("disabled");
-      this.addEvListener(".endMessageBut", "click", this.restart.bind(this));
-      this.buildBestsScores(
-         LocalStorage.getItem("snakeScore"),
-         this.$(".alertEndMessage"),
-         this.playerName
-      );
-   }
+
    /**
     * Game start, display alert box for name and start loop after
     * @memberof Game
@@ -155,19 +128,6 @@ class Game extends Snake {
    }
 
    /**
-    * Stop the render loop
-    * @returns
-    * @memberof Game
-    */
-   stopRenderLoop() {
-      if (GameState.currentStateOfGame === "end") {
-         this.end();
-         window.clearTimeout(this.timer);
-         this.timer = null;
-         return true;
-      }
-   }
-   /**
     * Render Game loop
     * @memberof Game
     */
@@ -190,6 +150,49 @@ class Game extends Snake {
          }
       };
       draw();
+   }
+
+   /**
+    * Stop the render loop
+    * @returns
+    * @memberof Game
+    */
+   stopRenderLoop() {
+      if (GameState.currentStateOfGame === "end") {
+         this.end();
+         window.clearTimeout(this.timer);
+         this.timer = null;
+         return true;
+      }
+   }
+
+   /**
+    * When player lose
+    * @memberof Game
+    */
+   end() {
+      if (this.score !== 0) this.addNewPlayerScore(this.score, this.playerName);
+      this.sounds.gameOver.play();
+      this.windowBuildAndDisplay(
+         {
+            content: `<p>Perdu ${this.playerName} !</p>
+                      <p>Votre score: ${this.score} points</p>
+                     `,
+            contentButton: "Rejouer",
+            contentLabel: null,
+            classContainerPopup: ["alertEndMessage", "alertMessage"],
+            classForButton: "endMessageBut",
+         },
+         document.body
+      );
+      this.$(".genContainer").classList.add("blurBody");
+      this.$(".endMessageBut").removeAttribute("disabled");
+      this.addEvListener(".endMessageBut", "click", this.restart.bind(this));
+      this.buildBestsScores(
+         LocalStorage.getItem("snakeScore"),
+         this.$(".alertEndMessage"),
+         this.playerName
+      );
    }
 }
 
