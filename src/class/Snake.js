@@ -52,7 +52,6 @@ class Snake extends Canvas {
             this.headImg = this.images.snake.head.right;
       }
    }
-
    /**
     * Draw the snake
     * @memberof Snake
@@ -94,7 +93,6 @@ class Snake extends Canvas {
       this.snake.unshift(this.newHead);
       this.updateSnake();
    }
-
    /**
     * Apply snake move direction
     * @memberof Snake
@@ -114,7 +112,6 @@ class Snake extends Canvas {
             this.oldHead.y += this.canvasBox;
       }
    }
-
    /**
     * give limits of game (x/y)
     * @memberof Snake

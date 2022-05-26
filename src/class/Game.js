@@ -29,7 +29,6 @@ class Game extends Snake {
          y: Math.floor(Math.random() * yConv) * this.canvasBox,
       };
    }
-
    /**
     * Manage the events after snake eat food
     * @returns {string | number | null}
@@ -53,7 +52,6 @@ class Game extends Snake {
       this.displayScoreAndFood(++this.totalFood, this.score);
       this.gameEvents() ? null : this.sounds.eatFood.play();
    }
-
    /**
     * Game start, display alert box for name and start loop after
     * @memberof Game
@@ -126,7 +124,6 @@ class Game extends Snake {
       // render loop start
       this.renderLoop();
    }
-
    /**
     * Render Game loop
     * @memberof Game
@@ -151,7 +148,6 @@ class Game extends Snake {
       };
       draw();
    }
-
    /**
     * Stop the render loop
     * @returns
@@ -165,7 +161,6 @@ class Game extends Snake {
          return true;
       }
    }
-
    /**
     * When player lose
     * @memberof Game

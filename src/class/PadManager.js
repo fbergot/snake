@@ -5,15 +5,18 @@ class PadManager {
       this.direction = "RIGHT";
    }
 
-   addListener() {
+   addListener(typeOfEvent) {
       this.padButtons = [...document.querySelectorAll(".butPad")];
       this.padButtons.forEach((but) => {
-         but.addEventListener("click", (e) =>
+         but.addEventListener(typeOfEvent, (e) =>
             this.applyDirection(e.target.getAttribute("id"))
          );
       });
    }
-
+   /**
+    *
+    * @param {string} dir
+    */
    applyDirection(dir) {
       switch (dir) {
          case "UP":
@@ -51,7 +54,7 @@ class PadManager {
       `;
       contPad.innerHTML = pad;
       this.parent.appendChild(contPad);
-      this.addListener();
+      this.addListener("click");
    }
 
    get currentDirection() {

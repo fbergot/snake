@@ -7,8 +7,12 @@ class LocalStorage {
     * @memberof LocalStorage
     */
    static setItem(key, value) {
-      const jsonValue = JSON.stringify(value);
-      window.localStorage.setItem(key, jsonValue);
+      try {
+         const jsonValue = JSON.stringify(value);
+         window.localStorage.setItem(key, jsonValue);
+      } catch (error) {
+      } finally {
+      }
    }
 
    /**

@@ -11,7 +11,7 @@ class SpeedManager {
    /**
     * Increment speed of snake
     * @param {number} totalFoods
-    * @return {boolean}
+    * @return {boolean | null}
     */
    incrementSpeed(totalFoods) {
       if (totalFoods % this.trigger === 0) {
@@ -42,6 +42,7 @@ class SpeedManager {
    }
    /**
     * Set a selector for indexed Map speeds
+    * @param {number} selector
     */
    set selectorSpeed(selector) {
       this.selector = selector;
