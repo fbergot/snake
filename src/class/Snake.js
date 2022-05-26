@@ -31,6 +31,8 @@ class Snake extends Canvas {
             break;
          case e.keyCode === 40 && this.direction !== "UP":
             this.direction = "DOWN";
+         default:
+            throw Error(`Bad keyCode given ${e.keyCode}`);
       }
    }
    /**
@@ -50,6 +52,8 @@ class Snake extends Canvas {
             break;
          case "RIGHT":
             this.headImg = this.images.snake.head.right;
+         default:
+            throw Error(`Bad dir param: given ${dir}`);
       }
    }
    /**
@@ -110,6 +114,8 @@ class Snake extends Canvas {
             break;
          case "DOWN":
             this.oldHead.y += this.canvasBox;
+         default:
+            throw Error("Bad this.direction");
       }
    }
    /**

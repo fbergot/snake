@@ -4,14 +4,17 @@ class LocalStorage {
     * @static
     * @param {string} key
     * @param {*} value
+    * @returns {void | false}
     * @memberof LocalStorage
     */
    static setItem(key, value) {
       try {
-         const jsonValue = JSON.stringify(value);
-         window.localStorage.setItem(key, jsonValue);
+         var jsonValue = JSON.stringify(value);
       } catch (error) {
+         console.error(error);
+         return false;
       } finally {
+         window.localStorage.setItem(key, jsonValue);
       }
    }
 
@@ -19,13 +22,21 @@ class LocalStorage {
     * Get item and parse before return
     * @static
     * @param {string} key
-    * @returns {any | null}
+    * @returns {any | false}
     * @memberof LocalStorage
     */
    static getItem(key) {
-      const jsonValue = window.localStorage.getItem(key);
-      if (!jsonValue) return null;
-      return JSON.parse(jsonValue);
+      let valueParsed = null;
+      try {
+         const jsonValue = window.localStorage.getItem(key);
+         if (!jsonValue) throw Error("No item");
+         valueParsed = JSON.parse(jsonValue);
+      } catch (error) {
+         console.error(error);
+         return false;
+      } finally {
+         return valueParsed;
+      }
    }
 }
 
