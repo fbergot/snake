@@ -150,7 +150,7 @@ class Game extends Snake {
    }
    /**
     * Stop the render loop
-    * @returns
+    * @returns {true | undefined}
     * @memberof Game
     */
    stopRenderLoop() {
