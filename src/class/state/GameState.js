@@ -1,7 +1,10 @@
 class GameState {
    constructor() {
-      this.states = ["inProgress", "end"];
+      this.states = ["start", "inProgress", "end"];
       this.currentState = this.states[0];
+      this.startFunc;
+      this.inProgressFunc;
+      this.endFunc;
    }
 
    /**
@@ -9,16 +12,43 @@ class GameState {
     * @returns void
     * @memberof GameState
     */
-   handleState() {
-      const stateLength = this.states.length;
-      const currentIndexOfState = this.states.findIndex((state) => {
-         return state === this.currentState;
-      });
-      if (currentIndexOfState < stateLength - 1) {
-         this.currentState = this.states[currentIndexOfState + 1];
-         return;
+   handleState(index) {
+      this.currentState = this.states[index];
+      this.checkState();
+   }
+
+   /**
+    * Check the current state and call func
+    */
+   checkState() {
+      switch (this.currentState) {
+         case "start":
+            this.startFunc();
+            break;
+         case "inProgress":
+            this.inProgressFunc();
       }
-      this.currentState = this.states[0];
+   }
+
+   /**
+    * Set the callback for game
+    * @param {() => void} func
+    * @param {'start' | 'inProgress' | 'end'} gameState
+    */
+   setCallbackOfGameState(func, gameState) {
+      switch (gameState) {
+         case "start":
+            this.startFunc = func;
+            break;
+         case "inProgress":
+            this.inProgressFunc = func;
+            break;
+         case "end":
+            this.endFunc = func;
+            break;
+         default:
+            throw Error("bad parameter gameState");
+      }
    }
 
    /**

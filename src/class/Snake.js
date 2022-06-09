@@ -87,7 +87,7 @@ class Snake extends Canvas {
       // check if snake hits himself
       if (this.collision(this.oldHead, this.snake) || this.canvasSnakeLimit()) {
          // state = 'end'
-         GameState.handleState();
+         GameState.handleState(2);
          return;
       }
       this.snake.unshift(this.newHead);

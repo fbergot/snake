@@ -75,7 +75,9 @@ class Game extends Snake {
             this.$(".alertMessageBut").setAttribute("disabled", "true");
          }
       });
-      this.addEvListener(".alertMessageBut", "click", this.initGame.bind(this));
+      GameState.setCallbackOfGameState(this.initGame.bind(this), "start");
+      GameState.setCallbackOfGameState(this.renderLoop.bind(this), "inProgress");
+      this.addEvListener(".alertMessageBut", "click", () => GameState.checkState());
    }
    /**
     * Restart game
@@ -98,8 +100,7 @@ class Game extends Snake {
       this.food = this.randomCoords();
       this.displayScoreAndFood(this.totalFood, this.score);
       // toggle state & run game loop
-      GameState.handleState();
-      this.renderLoop();
+      GameState.handleState(1);
    }
    /**
     * remove start window, render loop start
