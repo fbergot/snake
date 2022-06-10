@@ -1,5 +1,5 @@
 /**
- * Add sounds and images in Game proto
+ * Add sounds and images in Constructor proto
  * @param {Game} game
  * @param {{sounds: {gameOver: HTMLAudioElement, eatFood: HTMLAudioElement}, images: {
  *  snake: {head: {bottom: HTMLImageElement, top: HTMLImageElement, left: HTMLImageElement,
