@@ -9,6 +9,9 @@ import BossSound from "../assets/audio/eatFood.mp3";
  * @returns {HTMLAudioElement}
  */
 function soundBuilder(path, volume) {
+   if (typeof path !== "string") throw Error("Bad type of path param");
+   if (!volume || typeof volume !== "number") throw Error("Bad type of volume param");
+
    const audio = new Audio(path);
    audio.volume = volume;
    return audio;

@@ -19,7 +19,6 @@ class Game extends Snake {
    /**
     * Random coords
     * @returns {{x: number, y: number}}
-    * @memberof Snake
     */
    randomCoords() {
       const xConv = this.canvas.width / this.canvasBox;
@@ -32,7 +31,6 @@ class Game extends Snake {
    /**
     * Manage the events after snake eat food
     * @returns {string | number | null}
-    * @memberof Game
     */
    gameEvents() {
       const state = SpeedManager.incrementSpeed(this.totalFood);
@@ -44,7 +42,6 @@ class Game extends Snake {
    }
    /**
     * Update after food collision (score, speed, food coords...)
-    * @memberof Game
     */
    updateAfterFoodCollision() {
       this.score += this.incScoreNumb;
@@ -54,7 +51,6 @@ class Game extends Snake {
    }
    /**
     * Game start, display alert box for name and start loop after
-    * @memberof Game
     */
    start() {
       this.windowBuildAndDisplay(
@@ -81,7 +77,6 @@ class Game extends Snake {
    }
    /**
     * Restart game
-    * @memberof Game
     */
    restart() {
       SpeedManager.selectorSpeed = 1;
@@ -104,7 +99,6 @@ class Game extends Snake {
    }
    /**
     * remove start window, render loop start
-    * @memberof Game
     */
    initGame() {
       const playerName = this.$("#name").value;
@@ -127,7 +121,6 @@ class Game extends Snake {
    }
    /**
     * Render Game loop
-    * @memberof Game
     */
    renderLoop() {
       const draw = () => {
@@ -152,7 +145,6 @@ class Game extends Snake {
    /**
     * Stop the render loop
     * @returns {true | undefined}
-    * @memberof Game
     */
    stopRenderLoop() {
       if (GameState.currentStateOfGame === "end") {
@@ -164,7 +156,6 @@ class Game extends Snake {
    }
    /**
     * When player lose
-    * @memberof Game
     */
    end() {
       if (this.score !== 0) this.addNewPlayerScore(this.score, this.playerName);

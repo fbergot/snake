@@ -9,14 +9,11 @@ class GameState {
 
    /**
     * Handle the state of game
-    * @returns void
-    * @memberof GameState
     */
    handleState(index) {
       this.currentState = this.states[index];
       this.checkState();
    }
-
    /**
     * Check the current state and call func
     */
@@ -29,7 +26,6 @@ class GameState {
             this.inProgressFunc();
       }
    }
-
    /**
     * Set the callback for game
     * @param {() => void} func
@@ -50,12 +46,10 @@ class GameState {
             throw Error("bad parameter gameState");
       }
    }
-
    /**
     * Get current state of game
     * @readonly
     * @return {string}
-    * @memberof GameState
     */
    get currentStateOfGame() {
       return this.currentState;

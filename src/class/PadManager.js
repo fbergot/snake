@@ -4,7 +4,10 @@ class PadManager {
       this.padButtons;
       this.direction = "RIGHT";
    }
-
+   /**
+    * Add listener with type
+    * @param {string} typeOfEvent
+    */
    addListener(typeOfEvent) {
       this.padButtons = [...document.querySelectorAll(".butPad")];
       this.padButtons.forEach((but) => {
@@ -14,7 +17,7 @@ class PadManager {
       });
    }
    /**
-    *
+    * Change th direction of Snake from Pad
     * @param {string} dir
     */
    applyDirection(dir) {
@@ -40,7 +43,9 @@ class PadManager {
             }
       }
    }
-
+   /**
+    * Create Pad for small device
+    */
    createPad() {
       const contPad = document.createElement("div");
       contPad.classList.add("cont-pad");

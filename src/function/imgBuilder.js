@@ -11,6 +11,7 @@ import BodyX from "../assets/picture/bodyX.png";
  * @returns {HTMLImageElement}
  */
 function imgBuilder(path) {
+   if (typeof path !== "string") throw Error("Bad type of path param");
    const img = new Image();
    img.src = path;
    return img;

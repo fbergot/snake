@@ -7,9 +7,13 @@
  * @returns {{x: number, y: number}[]}
  */
 function startingSnakeBuilder(x_start, y_start, lengthOfBodySnake, canvasBox) {
-   const bodyOfSnake = [{ x: canvasBox * x_start, y: canvasBox * y_start }];
+   if (lengthOfBodySnake <= 0) throw Error("Bad length of body snake");
+   if (canvasBox === 0) throw Error("Bad width of canvasBox");
+
+   const bodyOfSnake = [];
    let i;
-   for (i = 1, x_start--; i <= lengthOfBodySnake; i++) {
+
+   for (i = 1, x_start; i <= lengthOfBodySnake; i++, x_start--) {
       bodyOfSnake.push({ x: canvasBox * x_start, y: canvasBox * y_start });
    }
    return bodyOfSnake;

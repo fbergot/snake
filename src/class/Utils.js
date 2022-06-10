@@ -9,7 +9,6 @@ class Utils {
     * Targeting HTMLElement
     * @param {string} tag
     * @returns {HTMLElement}
-    * @memberof Utils
     */
    $(tag) {
       return document.querySelector(tag);
@@ -18,7 +17,6 @@ class Utils {
     * build popup
     * @param {{content: string, classForDiv: string}} options
     * @param {HTMLElement} parent
-    * @memberof Utils
     */
    windowBuildAndDisplay(options, parent) {
       let inputOrNot = "";
@@ -49,7 +47,6 @@ class Utils {
     * Build speed message
     * @param {HTMLElement} parent
     * @param {string} message
-    * @memberof Utils
     */
    buildSpeedNotif(parent, message) {
       let already;
@@ -72,7 +69,6 @@ class Utils {
     * @param {string} target
     * @param {string} typeEvent
     * @param {(e) => void} callback
-    * @memberof Utils
     */
    addEvListener(target, typeEvent, callback) {
       this.$(target).addEventListener(typeEvent, callback);
@@ -82,7 +78,6 @@ class Utils {
     * Display score and foods in bubbles
     * @param {number} apples
     * @param {number} score
-    * @memberof Utils
     */
    displayScoreAndFood(apples, score) {
       this.$("#score").textContent = score;
@@ -91,7 +86,6 @@ class Utils {
    /**
     * Give old score of current player
     * @param {string} nameOfPlayer
-    * @memberof Utils
     */
    getPlayerOldScore(nameOfPlayer) {
       const oldScore = LocalStorage.getItem(this.keyScore);
@@ -109,7 +103,6 @@ class Utils {
    /*
     * @param {number} score
     * @param {string} nameOfPlayer
-    * @memberof Utils
     */
    addNewPlayerScore(score, nameOfPlayer) {
       let total_score_of_players;
@@ -149,7 +142,6 @@ class Utils {
    /**
     * Creation row for <table> (scores)
     * @param {{name: string, score: number}} data
-    * @memberof Utils
     */
    createLine(data, rating, playerName) {
       return `
@@ -164,7 +156,6 @@ class Utils {
     * Build array of bests scores in order
     * @param {{name: string, score: number}[]} bestsScores
     * @param {HTMLElement} parent
-    * @memberof Utils
     */
    buildBestsScores(bestsScores, parent, playerName) {
       const sortedScores = bestsScores.sort((a, b) => b.score - a.score);
@@ -195,7 +186,6 @@ class Utils {
     * Create score and apples bubbles
     * @param {string} pathApple
     * @param {HTMLElement} parent
-    * @memberof Utils
     */
    createBubbles(parent) {
       const container = document.createElement("div");
@@ -204,7 +194,7 @@ class Utils {
          <div>
             <p>Score</p>
             <span class="score" id='score'>0</span>
-         </div>  
+         </div>
          <div>
             <img class='appleBubble' src='${Food}' alt='food'/>
             <span class="apples" id='apples'>0</span>
