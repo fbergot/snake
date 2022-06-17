@@ -17,12 +17,10 @@ class Game extends Snake {
       this.playerName = "";
       this.food = this.randomCoords();
       this.soundState = false; // ms befor build new audio
-
       this.trigger = (time) => {
          this.soundState = true;
          setTimeout(() => {
             this.soundState = false;
-            console.log(this.soundState);
          }, time);
       };
    }
@@ -51,9 +49,13 @@ class Game extends Snake {
       return state;
    }
 
+   /**
+    * get always sound of food
+    * @param {number} time (in ms)
+    * @param {() => void} callback
+    */
    getSound(time, callback) {
       this.trigger(time);
-      console.log(this.soundState);
 
       if (!this.soundState) {
          callback();
