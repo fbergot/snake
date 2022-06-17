@@ -5,6 +5,7 @@ import SnakeBorder from "../assets/picture/snakeBorder.png";
 import SpeedManager from "./SpeedManager";
 import LocalStorage from "./LocalStorage";
 import PadManager from "./PadManager";
+import EatFood from "../assets/audio/tone.mp3";
 
 class Game extends Snake {
    constructor() {
@@ -15,6 +16,15 @@ class Game extends Snake {
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
+      this.soundState = false; // ms befor build new audio
+
+      this.trigger = (time) => {
+         this.soundState = true;
+         setTimeout(() => {
+            this.soundState = false;
+            console.log(this.soundState);
+         }, time);
+      };
    }
    /**
     * Random coords
@@ -40,6 +50,19 @@ class Game extends Snake {
       }
       return state;
    }
+
+   getSound(time, callback) {
+      this.trigger(time);
+      console.log(this.soundState);
+
+      if (!this.soundState) {
+         callback();
+      } else {
+         const audio = new Audio(EatFood);
+         audio.volume = 1;
+         audio.play();
+      }
+   }
    /**
     * Update after food collision (score, speed, food coords...)
     */
@@ -47,7 +70,7 @@ class Game extends Snake {
       this.score += this.incScoreNumb;
       this.food = this.randomCoords();
       this.displayScoreAndFood(++this.totalFood, this.score);
-      this.gameEvents() ? null : this.sounds.eatFood.play();
+      this.gameEvents() ? null : this.getSound(1200, () => this.sounds.eatFood.play());
    }
    /**
     * Game start, display alert box for name and start loop after

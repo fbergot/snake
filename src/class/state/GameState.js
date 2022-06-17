@@ -29,6 +29,7 @@ class GameState {
    /**
     * Set the callback for game
     * @param {() => void} func
+    * @param {'start' | 'inProgress', 'end'} gameState
     * @param {'start' | 'inProgress' | 'end'} gameState
     */
    setCallbackOfGameState(func, gameState) {

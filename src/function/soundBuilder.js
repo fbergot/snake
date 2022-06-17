@@ -6,6 +6,7 @@ import BossSound from "../assets/audio/eatFood.mp3";
 /**
  * Build new audio HTML
  * @param {string} path
+ * @param {number} volume
  * @returns {HTMLAudioElement}
  */
 function soundBuilder(path, volume) {
