@@ -16,7 +16,7 @@ class Game extends Snake {
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
-      this.soundState = false; // ms befor build new audio
+      this.soundState = false; 
       this.trigger = (time) => {
          this.soundState = true;
          setTimeout(() => {
