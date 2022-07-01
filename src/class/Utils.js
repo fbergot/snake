@@ -19,13 +19,33 @@ class Utils {
     * @param {HTMLElement} parent
     */
    windowBuildAndDisplay(options, parent) {
+      const propertiesCSS_select = `
+         text-align: center;
+         border-bottom: 1px solid #FFF;
+         color: #FFF;
+         padding: .5rem;
+         margin-bottom: 1rem;
+      `;
+
       let inputOrNot = "";
       if (options.contentLabel) {
          inputOrNot = `
-                <div>
-                    <label for='name'>${options.contentLabel}</label>
-                    <input type='text' id='name'/>
-                </div>
+                <form>
+                <div style='${propertiesCSS_select}'>Déjà enregistré ? <button id='change-log'>Se loguer</button></div>
+                  <div class='userDataInput'>
+                     <div class='content-label'>
+                        <label id='label' for='name'>${options.contentLabel}</label>
+                     </div>
+                     <input name='name' type='text' id='name'/>
+                  </div>
+
+                  <div class='userDataInput'>
+                     <div class='content-label'>
+                        <label id='label' for='password'>${options.contentLabel2}</label>
+                     </div>
+                     <input name='password' type='password' id='mdp'/>
+                  </div>
+                </form>
             `;
       }
       // creation external box

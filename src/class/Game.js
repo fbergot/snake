@@ -16,7 +16,7 @@ class Game extends Snake {
       this.incScoreNumb = 10;
       this.playerName = "";
       this.food = this.randomCoords();
-      this.soundState = false; 
+      this.soundState = false;
       this.trigger = (time) => {
          this.soundState = true;
          setTimeout(() => {
@@ -38,7 +38,7 @@ class Game extends Snake {
    }
    /**
     * Manage the events after snake eat food
-    * @returns {string | number | null}
+    * @returns {null | boolean}
     */
    gameEvents() {
       const state = SpeedManager.incrementSpeed(this.totalFood);
@@ -81,8 +81,9 @@ class Game extends Snake {
       this.windowBuildAndDisplay(
          {
             content: "",
-            contentButton: "Validez",
-            contentLabel: "Entrez votre prénom",
+            contentButton: "S'enregister",
+            contentLabel: "Entrez votre nom",
+            contentLabel2: "Entrez votre mot de passe",
             classContainerPopup: ["alertMessage"],
             classForButton: "alertMessageBut",
          },

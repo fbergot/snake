@@ -76,6 +76,7 @@ main {
 /* --------------------- alert message for name */
 
 .alertMessage {
+   padding: 0.5rem;
    background-color: #48a72b;
    border-radius: 0.7rem;
    width: 400px;
@@ -374,4 +375,31 @@ main {
    .alertMessage {
       width: 300px;
    }
+}
+.content-label {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   margin: 0.5rem 0;
+}
+.content-label > #label {
+   text-align: center;
+   color: #fff;
+}
+
+#mdp,
+#name {
+   padding: 0.5rem 1rem;
+   border: none !important;
+   width: 100% !important;
+   border-radius: 10px;
+   font-size: 0.9rem;
+   font-weight: 400;
+}
+
+#change-log {
+   background-color: transparent;
+   padding: 0.5rem;
+   color: #fff;
+   font-weight: 500;
 }
