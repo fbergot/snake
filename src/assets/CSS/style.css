@@ -1,3 +1,27 @@
+.int-class-con {
+   /* Foreground, Background */
+   scrollbar-color: rgb(155, 161, 46) rgb(218, 210, 107);
+}
+.int-class-con::-webkit-scrollbar {
+   width: 10px; /* Mostly for vertical scrollbars */
+   height: 10px; /* Mostly for horizontal scrollbars */
+}
+.int-class-con::-webkit-scrollbar-thumb {
+   /* Foreground */
+   background: rgb(196, 168, 27);
+}
+.int-class-con::-webkit-scrollbar-track {
+   /* Background */
+   background: rgb(212, 203, 107);
+}
+
+.int-class-con::-webkit-scrollbar-thumb {
+   border-radius: 3px;
+   width: 3px;
+   scrollbar-width: thin; /* "auto" or "thin" */
+   scrollbar-color: blue orange; /* scroll thumb and track */
+}
+
 @font-face {
    font-family: "Action_Man_Shaded";
    src: url("../font/Action_Man_Shaded.ttf");
@@ -382,13 +406,15 @@ main {
    justify-content: center;
    margin: 0.5rem 0;
 }
-.content-label > #label {
+.content-label > [for="email"],
+.content-label > [for="password"] {
    text-align: center;
    color: #fff;
 }
 
 #mdp,
-#name {
+#name,
+#email {
    padding: 0.5rem 1rem;
    border: none !important;
    width: 100% !important;
@@ -397,9 +423,160 @@ main {
    font-weight: 400;
 }
 
-#change-log {
+.change-log {
    background-color: transparent;
    padding: 0.5rem;
    color: #fff;
    font-weight: 500;
+   cursor: pointer;
+}
+
+.button-log {
+   text-align: center;
+   border-bottom: 1px solid #fff;
+   color: #fff;
+   padding: 0.5rem;
+   margin-bottom: 1rem;
+   flex-direction: row;
+}
+
+.cont-but {
+   text-align: center;
+   border-bottom: 1px solid #fff;
+   color: #fff;
+   padding: 0.5rem;
+   margin-bottom: 1rem;
+}
+
+#feedbackMessError {
+   padding: 0.5rem 0;
+   font-size: 0.8rem;
+   text-align: justify;
+   font-weight: 600;
+   color: rgb(234, 72, 72);
+}
+
+.classement {
+   opacity: 0;
+   transform: translateY(-100px);
+   overflow-y: auto;
+   position: absolute;
+   right: 70px;
+   left: 70px;
+   justify-content: center;
+   align-items: center;
+   top: 70px;
+   bottom: 70px;
+   border: 10px solid var(--secondary);
+   border-radius: 0.7rem;
+   display: none;
+   padding: 8px;
+   animation: alertBorder 1.2s infinite 1s cubic-bezier(0.165, 0.84, 0.44, 1),
+      trans 1s forwards;
+   z-index: 150;
+   background-color: var(--background);
+}
+
+@keyframes trans {
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+@keyframes transrretour {
+   0% {
+      display: none !important;
+      transform: translateY(-100px);
+      opacity: 0;
+   }
+}
+
+.escape-classement {
+   opacity: 1;
+   display: none !important;
+   animation: transretour 2s forwards;
+}
+
+.trigger-class {
+   cursor: pointer;
+   position: absolute;
+   right: 20px;
+   top: 20px;
+   padding: 5px 8px;
+   border-radius: 7px;
+}
+
+.line-class {
+   display: flex;
+   width: 100%;
+}
+
+.line-class p {
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+   width: 33.33%;
+   text-align: center;
+   padding: 5px 0;
+}
+
+.int-class-con {
+   max-height: 500px;
+   width: 500px;
+   display: flex;
+   overflow-y: auto;
+   scroll-snap-align: ;
+   flex-direction: column;
+   align-items: center;
+   border: 10px solid var(--secondary);
+}
+
+.int-class-con h1 {
+   text-align: justify;
+   color: #fff;
+   padding: 1rem;
+   font-weight: 600;
+   letter-spacing: 4.5px;
+   position: fixed;
+   width: 470px;
+
+   z-index: 56000;
+   background-color: var(--background);
+}
+
+.int-class-con hr {
+   width: 100%;
+}
+
+.first-line {
+   color: var(--secondary);
+   padding: 0.6rem 0;
+   border-bottom: 1px solid var(--secondary);
+   margin-bottom: 0.8rem;
+   border-top: 1px solid var(--secondary);
+   margin-top: 70px;
+   position: fixed;
+   max-width: 470px;
+   z-index: 75000;
+   background-color: var(--background);
+}
+
+.first-line p {
+   font-weight: 600;
+}
+
+.line-yellow {
+   background-color: var(--secondary);
+}
+.line-green {
+   background-color: var(--background);
+}
+
+#closebut {
+   padding: 7px 19px;
+   transform: translateX(-50%);
+   bottom: 10px;
+   position: absolute;
+   border-radius: 7px;
+   cursor: pointer;
 }

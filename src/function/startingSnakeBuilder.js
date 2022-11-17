@@ -1,3 +1,6 @@
+import { messagesAndErrors } from "../globalCodeConfig/messagesAnderrors";
+const errors = messagesAndErrors.startingSakeBuilder;
+
 /**
  * Build snake
  * @param {number} x_start
@@ -7,8 +10,8 @@
  * @returns {{x: number, y: number}[]}
  */
 function startingSnakeBuilder(x_start, y_start, lengthOfBodySnake, canvasBox) {
-   if (lengthOfBodySnake <= 0) throw Error("Bad length of body snake");
-   if (canvasBox === 0) throw Error("Bad width of canvasBox");
+   if (lengthOfBodySnake <= 0) throw Error(errors.badLength);
+   if (canvasBox === 0) throw Error(errors.badWidthOfCanvasBox);
 
    const bodyOfSnake = [];
    let i;

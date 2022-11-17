@@ -1,13 +1,18 @@
 import Utils from "./Utils";
+import { speedsForLevels } from "../globalCodeConfig/levels";
+import { selectorOfSpeed } from "../function/speedsForLevelsSelector";
+import { messagesAndErrors } from "../globalCodeConfig/messagesAnderrors";
+const errors = messagesAndErrors.speedManager;
 
 class SpeedManager {
-   constructor(nForTrigger, speedsLoopObject) {
+   constructor(nForTrigger, speedsLoopData) {
+      this.speeds = new Map(speedsLoopData);
       this.utils = new Utils();
-      this.speeds = new Map(speedsLoopObject);
       this.selector = 1;
-      this.trigger = nForTrigger;
       this.triggerCount = 1;
+      this.trigger = nForTrigger;
    }
+
    /**
     * Increment speed of snake
     * @param {number} totalFoods
@@ -16,7 +21,7 @@ class SpeedManager {
    incrementSpeed(totalFoods) {
       if (totalFoods % this.trigger === 0) {
          if (this.selector < this.gearBoxSize) {
-            this.utils.buildSpeedNotif(document.body, "Speed uuuuup !!");
+            this.utils.buildSpeedNotif(document.body, errors.speedUp);
             ++this.triggerCount;
             ++this.selector;
             return true;
@@ -25,7 +30,7 @@ class SpeedManager {
                return false;
             } else {
                ++this.triggerCount;
-               this.utils.buildSpeedNotif(document.body, "Speed Maxxxx !!");
+               this.utils.buildSpeedNotif(document.body, errors.speedMax);
                return true;
             }
          }
@@ -40,6 +45,7 @@ class SpeedManager {
    get gearBoxSize() {
       return this.speeds.size;
    }
+
    /**
     * Set a selector for indexed Map speeds
     * @param {number} selector
@@ -47,20 +53,18 @@ class SpeedManager {
    set selectorSpeed(selector) {
       this.selector = selector;
    }
+
    /**
-    * Get a current speed for loop (setTimeout in ms in renderLoop())
+    * Get a current speed for loop (setTimeout in ms for Game.renderLoop())
     * @readonly
     */
    get currentSpeed() {
       return this.speeds.get(this.selector);
    }
 }
-export default new SpeedManager(10, [
-   [1, 130],
-   [2, 120],
-   [3, 110],
-   [4, 100],
-   [5, 90],
-   [6, 80],
-   [7, 70],
-]);
+
+const difficulties = ["easy", "middle", "hard"];
+const speeds = selectorOfSpeed(difficulties[1], speedsForLevels);
+const levelsBeforeTrigger = 6;
+
+export default new SpeedManager(levelsBeforeTrigger, speeds);

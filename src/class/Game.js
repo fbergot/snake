@@ -17,13 +17,14 @@ class Game extends Snake {
       this.playerName = "";
       this.food = this.randomCoords();
       this.soundState = false;
-      this.trigger = (time) => {
+      this.soundTrigger = (time) => {
          this.soundState = true;
          setTimeout(() => {
             this.soundState = false;
          }, time);
       };
    }
+
    /**
     * Random coords
     * @returns {{x: number, y: number}}
@@ -36,6 +37,7 @@ class Game extends Snake {
          y: Math.floor(Math.random() * yConv) * this.canvasBox,
       };
    }
+
    /**
     * Manage the events after snake eat food
     * @returns {null | boolean}
@@ -55,7 +57,7 @@ class Game extends Snake {
     * @param {() => void} callback
     */
    getSound(time, callback) {
-      this.trigger(time);
+      this.soundTrigger(time);
 
       if (!this.soundState) {
          callback();
@@ -65,6 +67,7 @@ class Game extends Snake {
          audio.play();
       }
    }
+
    /**
     * Update after food collision (score, speed, food coords...)
     */
@@ -74,33 +77,27 @@ class Game extends Snake {
       this.displayScoreAndFood(++this.totalFood, this.score);
       this.gameEvents() ? null : this.getSound(1200, () => this.sounds.eatFood.play());
    }
+
    /**
-    * Game start, display alert box for name and start loop after
+    * Game start, display alert box for signin/signup and start game loop
     */
-   start() {
-      this.windowBuildAndDisplay(
-         {
-            content: "",
-            contentButton: "S'enregister",
-            contentLabel: "Entrez votre nom",
-            contentLabel2: "Entrez votre mot de passe",
-            classContainerPopup: ["alertMessage"],
-            classForButton: "alertMessageBut",
-         },
-         this.mainHTML
-      );
-      this.addEvListener("input", "input", (e) => {
-         if (e.target.value.length >= 2) {
-            this.$(".alertMessageBut").removeAttribute("disabled");
-         }
-         if (e.target.value.length < 2) {
-            this.$(".alertMessageBut").setAttribute("disabled", "true");
-         }
-      });
-      GameState.setCallbackOfGameState(this.initGame.bind(this), "start");
-      GameState.setCallbackOfGameState(this.renderLoop.bind(this), "inProgress");
-      this.addEvListener(".alertMessageBut", "click", () => GameState.checkState());
+   async start() {
+      try {
+         this.addEvListener(
+            "#trigger-class",
+            "click",
+            this.buildAndDisplayClassement.bind(this)
+         );
+
+         await this.buildLoginStart(this.mainHTML);
+         GameState.setCallbackOfGameState(this.initGame.bind(this), "start");
+         GameState.setCallbackOfGameState(this.renderLoop.bind(this), "inProgress");
+         GameState.checkState();
+      } catch (error) {
+         console.info(error);
+      }
    }
+
    /**
     * Restart game
     */
@@ -123,11 +120,12 @@ class Game extends Snake {
       // toggle state & run game loop
       GameState.handleState(1);
    }
+
    /**
     * remove start window, render loop start
     */
    initGame() {
-      const playerName = this.$("#name").value;
+      const playerName = this.$("#email").value;
       this.playerName = playerName.toLowerCase();
       // remove start window
       this.$(".alertMessage").remove();
@@ -145,6 +143,7 @@ class Game extends Snake {
       // render loop start
       this.renderLoop();
    }
+
    /**
     * Render Game loop
     */
@@ -168,6 +167,7 @@ class Game extends Snake {
       };
       draw();
    }
+
    /**
     * Stop the render loop
     * @returns {true | undefined}
@@ -180,24 +180,13 @@ class Game extends Snake {
          return true;
       }
    }
+
    /**
     * When player lose
     */
    end() {
       if (this.score !== 0) this.addNewPlayerScore(this.score, this.playerName);
       this.sounds.gameOver.play();
-      this.windowBuildAndDisplay(
-         {
-            content: `<p>Perdu ${this.playerName} !</p>
-                      <p>Votre score: ${this.score} points</p>
-                     `,
-            contentButton: "Rejouer",
-            contentLabel: null,
-            classContainerPopup: ["alertEndMessage", "alertMessage"],
-            classForButton: "endMessageBut",
-         },
-         document.body
-      );
       this.$(".genContainer").classList.add("blurBody");
       this.$(".endMessageBut").removeAttribute("disabled");
       this.addEvListener(".endMessageBut", "click", this.restart.bind(this));

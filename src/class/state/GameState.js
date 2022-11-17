@@ -6,9 +6,9 @@ class GameState {
       this.inProgressFunc;
       this.endFunc;
    }
-
    /**
     * Handle the state of game
+    * @param {number} index
     */
    handleState(index) {
       this.currentState = this.states[index];
@@ -29,7 +29,6 @@ class GameState {
    /**
     * Set the callback for game
     * @param {() => void} func
-    * @param {'start' | 'inProgress', 'end'} gameState
     * @param {'start' | 'inProgress' | 'end'} gameState
     */
    setCallbackOfGameState(func, gameState) {

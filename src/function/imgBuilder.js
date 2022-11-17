@@ -4,6 +4,8 @@ import HeadLeft from "../assets/picture/headLeft.png";
 import HeadRight from "../assets/picture/headRight.png";
 import Food from "../assets/picture/food.png";
 import BodyX from "../assets/picture/bodyX.png";
+import { messagesAndErrors } from "../globalCodeConfig/messagesAnderrors";
+const errors = messagesAndErrors.builder;
 
 /**
  * Build new image
@@ -11,7 +13,7 @@ import BodyX from "../assets/picture/bodyX.png";
  * @returns {HTMLImageElement}
  */
 function imgBuilder(path) {
-   if (typeof path !== "string") throw Error("Bad type of path param");
+   if (typeof path !== "string") throw Error(errors.badTypeOfPath);
    const img = new Image();
    img.src = path;
    return img;

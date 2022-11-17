@@ -1,3 +1,6 @@
+import { messagesAndErrors } from "../globalCodeConfig/messagesAnderrors";
+const errors = messagesAndErrors.localStorage;
+
 class LocalStorage {
    /**
     * Stringify and set item in localStorage
@@ -5,16 +8,13 @@ class LocalStorage {
     * @param {string} key
     * @param {*} value
     * @returns {void | false}
-    * @memberof LocalStorage
     */
    static setItem(key, value) {
       try {
          var jsonValue = JSON.stringify(value);
+         window.localStorage.setItem(key, jsonValue);
       } catch (error) {
          console.error(error);
-         return false;
-      } finally {
-         window.localStorage.setItem(key, jsonValue);
       }
    }
 
@@ -23,20 +23,22 @@ class LocalStorage {
     * @static
     * @param {string} key
     * @returns {any | false}
-    * @memberof LocalStorage
     */
    static getItem(key) {
-      let valueParsed = null;
       try {
          const jsonValue = window.localStorage.getItem(key);
-         if (!jsonValue) throw Error("No item");
-         valueParsed = JSON.parse(jsonValue);
+         if (!jsonValue) throw Error(errors.missingItemInLocalStor);
+         return JSON.parse(jsonValue);
       } catch (error) {
          console.error(error);
-         return false;
-      } finally {
-         return valueParsed;
       }
+   }
+
+   /**
+    * @param {string} key
+    */
+   static removeItem(key) {
+      window.localStorage.removeItem(key);
    }
 }
 
