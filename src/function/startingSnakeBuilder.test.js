@@ -1,4 +1,4 @@
-import startingSnakeBuilder from "./startingSnakeBuilder";
+import startingSnakeBuilder from "./startingSnakeBuilder.js";
 
 /* eslint-disable */
 describe("startingSnakeBuilder", () => {

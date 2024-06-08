@@ -1,4 +1,4 @@
-import game_assets_dec from "./game_assets_dec";
+import game_assets_dec from "./game_assets_dec.js";
 
 /* eslint-disable */
 describe("game_assets_dec", () => {

@@ -1,13 +1,14 @@
-const path = require("path");
-const webpack = require("webpack");
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = {
+export default {
    entry: "./src/app.js",
    output: {
       filename: "main.js",
       path: path.resolve(__dirname, "public"),
    },
-   mode: "production",
+   mode: "development",
    module: {
       rules: [
          {
@@ -28,7 +29,7 @@ module.exports = {
             type: "asset/resource",
          },
          {
-            test: /\.js$/,
+            test: /\**\/.js$/i,
             exclude: /node_modules/,
             use: ["babel-loader"],
          },

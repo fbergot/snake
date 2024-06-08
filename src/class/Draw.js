@@ -1,4 +1,4 @@
-import Utils from "./Utils";
+import Utils from "./Utils.js";
 
 class Draw extends Utils {
    constructor() {

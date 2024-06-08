@@ -1,10 +1,10 @@
-import Snake from "./Snake";
-import GameState from "./state/GameState";
-import startingSnakeBuilder from "../function/startingSnakeBuilder";
+import Snake from "./Snake.js";
+import GameState from "./state/GameState.js";
+import startingSnakeBuilder from "../function/startingSnakeBuilder.js";
 import SnakeBorder from "../assets/picture/snakeBorder.png";
-import SpeedManager from "./SpeedManager";
-import LocalStorage from "./LocalStorage";
-import PadManager from "./PadManager";
+import SpeedManager from "./SpeedManager.js";
+import LocalStorage from "./LocalStorage.js";
+import PadManager from "./PadManager.js";
 import EatFood from "../assets/audio/tone.mp3";
 
 class Game extends Snake {

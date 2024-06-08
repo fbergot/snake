@@ -1,4 +1,4 @@
-import Draw from "./Draw";
+import Draw from "./Draw.js";
 
 class Canvas extends Draw {
    constructor() {

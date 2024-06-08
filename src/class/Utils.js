@@ -1,4 +1,4 @@
-import LocalStorage from "./LocalStorage";
+import LocalStorage from "./LocalStorage.js";
 import Food from "../assets/picture/food.png";
 
 class Utils {

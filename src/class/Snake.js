@@ -1,6 +1,6 @@
-import Canvas from "./Canvas";
-import GameState from "./state/GameState";
-import startingSnakeBuilder from "../function/startingSnakeBuilder";
+import Canvas from "./Canvas.js";
+import GameState from "./state/GameState.js";
+import startingSnakeBuilder from "../function/startingSnakeBuilder.js";
 
 class Snake extends Canvas {
    constructor() {
